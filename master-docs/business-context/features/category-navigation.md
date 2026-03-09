@@ -78,7 +78,6 @@ Tela de Recomendação (F04)
 | Código | Regra |
 |---|---|
 | RN03 | Apenas pratos com ao menos 1 recomendação cadastrada são exibidos |
-| RN06 | Novos pratos adicionados via painel ficam disponíveis sem novo deploy |
 
 ---
 
@@ -140,11 +139,11 @@ Tela de Recomendação (F04)
 
 ## Métricas de Sucesso
 
-| Métrica | Meta |
-|---|---|
-| Distribuição de consultas entre categorias | Equilibrada — sem categoria com 0 consultas |
-| Tempo médio até seleção do prato | < 30 segundos |
-| Taxa de chegada à recomendação via categorias | > 70% das sessões |
+| Métrica | Meta | Observação |
+|---|---|---|
+| Distribuição de consultas entre categorias | Equilibrada — sem categoria com 0 consultas | Referência para versões com analytics |
+| Tempo médio até seleção do prato | < 30 segundos | Referência para versões com analytics |
+| Taxa de chegada à recomendação via categorias | > 70% das sessões | Referência para versões com analytics |
 
 ---
 
@@ -153,7 +152,7 @@ Tela de Recomendação (F04)
 | Cenário | Comportamento |
 |---|---|
 | Categoria sem pratos ativos | Não exibida no grid |
-| Prato desativado via painel (F10) | Removido da lista sem necessidade de deploy |
+| Prato desativado | Removido do seed — não exibido na lista |
 | Imagem do prato não carrega | Placeholder visual neutro |
 | Conexão lenta | Skeleton loader nas categorias e pratos |
 
@@ -163,4 +162,3 @@ Tela de Recomendação (F04)
 
 - F01 (Gate de Maioridade) — pré-requisito de acesso
 - F04 (Recomendação de Cerveja) — destino após seleção do prato
-- F10 (Painel de Gestão) — adicionar/remover pratos e categorias

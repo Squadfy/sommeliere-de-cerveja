@@ -63,7 +63,6 @@ Lista de sugestões em tempo real (debounce 300ms)
 | Código | Regra |
 |---|---|
 | RN03 | Apenas pratos com ao menos 1 recomendação aparecem nos resultados |
-| RN06 | Novos pratos adicionados via painel ficam disponíveis na busca imediatamente |
 
 ---
 
@@ -75,7 +74,6 @@ Lista de sugestões em tempo real (debounce 300ms)
 - [ ] Variações e sinônimos cadastrados nos `search_tags` do prato são encontrados
 - [ ] Apenas pratos ativos com recomendação cadastrada aparecem nos resultados
 - [ ] Quando não há resultados, exibe mensagem amigável e CTA para categorias
-- [ ] Termos buscados sem resultado são enviados para o analytics (F09)
 - [ ] Ao selecionar um prato da lista, navega para a tela de recomendação (F04)
 
 ---
@@ -116,7 +114,7 @@ db.dishes.createIndex({
 - **Performance:** Índice textual + limite de 8 resultados — resposta esperada < 100ms
 - **Debounce client-side:** 300ms no input antes de disparar `fetch`
 - **Sem paginação:** 50 pratos no catálogo MVP — lista completa é viável sem paginação
-- **Analytics:** Termos sem resultado enviados via `POST /api/analytics/events` (F09)
+- **Sem analytics no protótipo:** Termos sem resultado não são rastreados nesta versão
 
 ---
 
@@ -154,4 +152,3 @@ db.dishes.createIndex({
 - F01 (Gate de Maioridade) — pré-requisito de acesso
 - F02 (Navegação por Categorias) — fallback quando busca não tem resultado
 - F04 (Recomendação de Cerveja) — destino após seleção
-- F09 (Analytics) — registro de termos sem resultado

@@ -1,12 +1,16 @@
 # Feature: Analytics de Uso
 
 **ID:** F09
-**Status:** MVP — Escopo Core
-**Prioridade:** Média (invisível ao usuário, crítica para o negócio)
+**Status:** ~~Fora do escopo — removido do protótipo~~
+**Prioridade:** N/A
 
 ---
 
-## Propósito
+## ⚠️ Feature Removida do Protótipo
+
+Analytics de uso está fora do escopo desta versão. Esta documentação é mantida como referência para versões futuras.
+
+## Propósito (referência futura)
 
 Coletar dados agregados e anônimos de uso para informar decisões de produto, conteúdo e marketing, em conformidade com LGPD.
 

@@ -56,7 +56,7 @@ A Dica de Serviço é exibida como seção **sempre visível** dentro da tela de
 | Sol Lager | 4°C – 6°C | Long neck ou copo americano |
 | Devassa | 4°C – 6°C | Copo caldereta ou americano |
 
-> ⚠️ Dados acima são referência de mercado. A tabela oficial deve ser validada com especialistas do Grupo Heineken.
+> ✅ Dados validados — conteúdo oficial disponível e será populado via seed.
 
 ---
 
@@ -65,7 +65,6 @@ A Dica de Serviço é exibida como seção **sempre visível** dentro da tela de
 - [ ] Temperatura e tipo de copo são exibidos abaixo da explicação sensorial da cerveja #1
 - [ ] A dica é sempre visível — sem accordion, toggle ou interação adicional
 - [ ] Ícones visuais (termômetro e copo) acompanham o texto
-- [ ] Conteúdo da dica é editável via Painel de Gestão (F10) sem novo deploy
 - [ ] A dica exibida corresponde à cerveja #1 da recomendação, não às cervejas #2/#3
 
 ---
@@ -123,4 +122,3 @@ Sem collection separada — dados da dica de serviço são parte do cadastro de 
 ## Dependências
 
 - F04 (Recomendação de Cerveja) — contexto onde a dica é exibida
-- F10 (Painel de Gestão) — edição de temperatura e tipo de copo por cerveja

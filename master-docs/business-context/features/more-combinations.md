@@ -124,11 +124,11 @@ db.recommendations.find({
 
 ## Métricas de Sucesso
 
-| Métrica | Meta |
-|---|---|
-| Taxa de acesso a "Ver mais combinações" | > 25% das sessões |
-| % sessões com exposição a estilos artesanais | > 40% (Eisenbahn ou Baden Baden) |
-| % estilos não-mainstream visualizados | > 30% (além de Heineken e Amstel) |
+| Métrica | Meta | Observação |
+|---|---|---|
+| Taxa de acesso a "Ver mais combinações" | > 25% das sessões | Referência para versões com analytics |
+| % sessões com exposição a estilos artesanais | > 40% (Eisenbahn ou Baden Baden) | Referência para versões com analytics |
+| % estilos não-mainstream visualizados | > 30% (além de Heineken e Amstel) | Referência para versões com analytics |
 
 ---
 
@@ -137,7 +137,7 @@ db.recommendations.find({
 | Cenário | Comportamento |
 |---|---|
 | Prato com ≤ 3 recomendações | CTA "Ver mais combinações" não é exibido |
-| Todas as recomendações extras desativadas via painel | CTA não é exibido |
+| Todas as recomendações extras inativas no seed | CTA não é exibido |
 | Imagem de cerveja alternativa não carrega | Placeholder visual com nome da marca |
 
 ---
@@ -146,4 +146,3 @@ db.recommendations.find({
 
 - F04 (Recomendação de Cerveja) — ponto de acesso e contexto
 - F08 (Compartilhamento Social) — ação disponível em cada combinação
-- F10 (Painel de Gestão) — gerenciar recomendações extras por prato

@@ -97,7 +97,7 @@ Age gate funcional, disclaimer de consumo responsável visível e coleta de anal
 - Compartilhamento social (WhatsApp, Instagram)
 - Listagem do portfólio completo de marcas Heineken
 - Design responsivo (PWA)
-- Analytics básico (agregado, anônimo — LGPD compliant)
+- Conteúdo (pratos, cervejas e harmonizações) populado via seed de banco de dados
 
 ### Fora do Escopo
 
@@ -108,6 +108,8 @@ Age gate funcional, disclaimer de consumo responsável visível e coleta de anal
 - Integração com PDV ou sistemas internos
 - Múltiplos idiomas (apenas PT-BR)
 - Marcas fora do portfólio Heineken
+- Painel administrativo ou CMS (dados via seed)
+- Analytics de uso
 
 ---
 
@@ -125,11 +127,11 @@ Age gate funcional, disclaimer de consumo responsável visível e coleta de anal
 | 7 | Go-live / Deploy em Produção | 1 semana |
 | **Total** | | **~16 semanas** |
 
-### Pendências Críticas para Início
+### Decisões Tomadas
 
-| # | Item | Responsável | Prioridade |
-|---|---|---|---|
-| P01 | Tabela de harmonização oficial (prato × marca + textos) | Cliente (Marketing) | Alta |
-| P02 | Assets de marca (logos, fotos, guia visual) | Cliente (Marketing) | Alta |
-| P03 | Definição da ferramenta de gestão de conteúdo | Cliente + Tech | Média |
-| P04 | Aprovação jurídica dos textos e disclaimers | Cliente (Jurídico) | Média |
+| # | Item | Decisão |
+|---|---|---|
+| P01 | Tabela de harmonização | Conteúdo disponível — populado via seed |
+| P02 | Assets de marca | Disponíveis — utilizados diretamente |
+| P03 | Ferramenta de gestão de conteúdo | Sem CMS — seed only para o protótipo |
+| P04 | Analytics | Fora do escopo do protótipo |

@@ -109,7 +109,6 @@ Configuradas em cada página `/prato/[slug]` para enriquecer o preview no WhatsA
 - [ ] Quando novo usuário clica no link, passa pelo gate de maioridade antes da recomendação
 - [ ] Pós-gate, o usuário é redirecionado exatamente para `/prato/[slug]` (não para a home)
 - [ ] OG tags de cada `/prato/[slug]` exibem preview rico no WhatsApp (título + imagem + descrição)
-- [ ] O evento de compartilhamento é registrado no analytics (F09)
 
 ---
 
@@ -140,7 +139,7 @@ https://app.sommeliere.com.br/prato/[slug]?beer=[beer-slug]
 - **Sem dependência de API externa:** `wa.me` funciona em todos os browsers mobile modernos
 - **OG Tags:** Geradas server-side no Next.js (`generateMetadata` por rota `/prato/[slug]`)
 - **Deep link preservation no gate:** URL de destino passada via query param `?redirect=/prato/[slug]` e preservada durante o fluxo do gate
-- **Analytics:** Evento `share_initiated` + `share_completed` via F09
+- **Sem analytics no protótipo:** eventos de compartilhamento não são rastreados nesta versão
 
 ---
 
@@ -176,4 +175,3 @@ https://app.sommeliere.com.br/prato/[slug]?beer=[beer-slug]
 - F04 (Recomendação de Cerveja) — ponto de acionamento principal
 - F06 (Ver Mais Combinações) — ponto de acionamento alternativo
 - F01 (Gate de Maioridade) — fluxo do novo usuário que recebe o link
-- F09 (Analytics) — rastreamento de compartilhamentos e acessos via UTM

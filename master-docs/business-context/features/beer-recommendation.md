@@ -201,14 +201,10 @@ Tela de Resultado
 - F05 (Dica de Serviço) — integrada à tela
 - F06 (Ver Mais Combinações) — CTA condicional
 - F08 (Compartilhamento) — CTA obrigatório
-- F10 (Painel de Gestão) — atualização de textos e recomendações
+- ~~F10 (Painel de Gestão)~~ — removido; dados gerenciados via seed
 
 ---
 
 ## Pendências Críticas
 
-| # | Item | Responsável |
-|---|---|---|
-| P02 | Tabela de harmonização oficial (prato × marca + textos sensoriais validados) | Marketing Heineken |
-| P04 | Assets visuais dos produtos (fotos oficiais) | Marketing Heineken |
-| P05 | Aprovação jurídica dos textos editoriais | Jurídico Heineken |
+Sem pendências críticas. Conteúdo e assets disponíveis — serão populados via seed de banco de dados.

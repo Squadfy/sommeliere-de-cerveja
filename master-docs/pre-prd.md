@@ -75,10 +75,9 @@ O mercado de cervejas artesanais e premium no Brasil está em crescimento consis
 
 ### 3.5 Gestão do Conteúdo
 
-A solução deverá prever um mecanismo de atualização de conteúdo (painel administrativo simples ou integração com CMS/planilha estruturada), permitindo que o cliente adicione novos pratos, atualize descrições e inclua novas marcas ao portfólio sem depender de nova versão do app.
+O conteúdo do protótipo (pratos, cervejas e tabela de harmonização) será gerenciado via **seed de banco de dados**. Não haverá painel administrativo ou CMS nesta versão — atualizações de conteúdo requerem novo seed ou intervenção técnica direta.
 
-> ⚠️ **Campo a preencher:** Definir se haverá painel administrativo próprio ou integração com ferramenta já utilizada pelo cliente (ex: Contentful, Strapi, Google Sheets via API).
-> 
+> ✅ **Decisão tomada:** Sem CMS ou painel de gestão para o protótipo. Dados populados via seed.
 
 ---
 
@@ -90,10 +89,10 @@ A solução deverá prever um mecanismo de atualização de conteúdo (painel ad
 - Navegação por categorias de pratos;
 - Busca por nome de prato;
 - Tela de resultado com recomendação de cerveja, explicação e dica de serviço;
-- Opção de compartilhamento social (WhatsApp, Instagram);
+- Opção de compartilhamento via WhatsApp (link com preview rico via OG tags);
 - Listagem completa do portfólio de marcas Heineken;
 - Design responsivo e alinhado ao guia de marca do Grupo Heineken;
-- Rastreamento básico de uso (analytics de cliques e seleções);
+- Conteúdo (pratos, cervejas e harmonizações) populado via seed de banco de dados;
 - Documentação técnica e manual de uso.
 
 ### ❌ Fora do Escopo (nesta versão)
@@ -103,7 +102,9 @@ A solução deverá prever um mecanismo de atualização de conteúdo (painel ad
 - Gamificação ou programa de pontos/fidelidade;
 - Integração com PDV ou sistemas internos do cliente;
 - Suporte a múltiplos idiomas (versão inicial em português);
-- Curadoria de harmonização com rótulos de outras bebidas (fora do portfólio Heineken).
+- Curadoria de harmonização com rótulos de outras bebidas (fora do portfólio Heineken);
+- Painel administrativo ou CMS de gestão de conteúdo (dados via seed);
+- Analytics de uso (fora do escopo do protótipo).
 
 ---
 
@@ -118,7 +119,7 @@ A solução deverá prever um mecanismo de atualização de conteúdo (painel ad
 | **5. Recomendação** | Visualiza a cerveja recomendada | Exibe imagem da cerveja, marca, título e texto explicativo | Pode haver até 3 sugestões |
 | **6. Detalhes** | Acessa dica de serviço | Exibe temperatura ideal e tipo de copo recomendado | Conteúdo editorial |
 | **7. Exploração** | Toca em "Ver mais combinações" | Exibe outras cervejas que combinam com o prato | Ordenadas por afinidade |
-| **8. Compartilhamento** | Toca em "Compartilhar" | Abre sheet nativo de compartilhamento com imagem gerada | Card visual com branding |
+| **8. Compartilhamento** | Toca em "Compartilhar no WhatsApp" | Abre WhatsApp com mensagem pré-formatada e link da recomendação | Link com preview rico via OG tags |
 | **9. Nova Consulta** | Toca em "Escolher outro prato" | Retorna à tela inicial | Fluxo contínuo |
 
 ---
@@ -207,20 +208,25 @@ A solução deverá prever um mecanismo de atualização de conteúdo (painel ad
 
 ---
 
-## ⚠️ Informações Pendentes — Campos a Completar
+## ✅ Decisões Tomadas
+
+| # | Item | Decisão |
+| --- | --- | --- |
+| P01 | **Plataforma de desenvolvimento** | PWA — Next.js + MongoDB + AWS |
+| P02 | **Tabela de harmonização** | Conteúdo disponível — será populado via seed de banco de dados |
+| P04 | **Assets de marca** | Assets disponíveis — serão utilizados diretamente no projeto |
+| P05 | **Ferramenta de gestão de conteúdo** | Sem CMS para o protótipo — dados gerenciados via seed |
+| P06 | **Analytics** | Fora do escopo do protótipo |
+| P09 | **Idiomas** | Apenas PT-BR |
+| P10 | **Distribuição** | PWA — acesso via link/QR code, sem publicação em lojas |
+
+## ⚠️ Informações Pendentes
 
 | # | Item Pendente | Responsável | Prioridade |
 | --- | --- | --- | --- |
-| P01 | **Plataforma de desenvolvimento** — iOS nativo, Android nativo, app híbrido (React Native / Flutter) ou PWA | Cliente + Tech | 🔴 Alta |
-| P02 | **Tabela de harmonização oficial** — mapeamento prato × marca com textos de justificativa | Cliente (Marketing) | 🔴 Alta |
 | P03 | **Data de início e prazo máximo** do projeto | Cliente | 🔴 Alta |
-| P04 | **Assets de marca** — fotografias dos produtos, logos em alta resolução, guia de identidade visual | Cliente (Marketing) | 🔴 Alta |
-| P05 | **Ferramenta de gestão de conteúdo** — painel próprio ou CMS existente no cliente | Cliente + Tech | 🟡 Média |
-| P06 | **Definição de analytics** — ferramenta preferida (Firebase, Mixpanel, GA4 etc.) | Cliente + Tech | 🟡 Média |
-| P07 | **Integrações externas** — necessidade de integração com CRM, e-commerce ou outros sistemas | Cliente | 🟡 Média |
-| P08 | **Aprovação jurídica** dos textos de harmonização e disclaimer de consumo responsável | Cliente (Jurídico) | 🟡 Média |
-| P09 | **Idiomas adicionais** — confirmar se versão inicial será apenas em português | Cliente | 🟢 Baixa |
-| P10 | **Estratégia de distribuição** — App Store e Google Play, ou apenas um deles? | Cliente | 🟢 Baixa |
+| P07 | **Integrações externas** — confirmar ausência de integrações (CRM, e-commerce) | Cliente | 🟡 Média |
+| P08 | **Aprovação dos textos de harmonização** — validação editorial antes do seed | Cliente (Marketing) | 🟡 Média |
 
 ---
 

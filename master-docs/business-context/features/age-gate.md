@@ -116,11 +116,11 @@ localStorage:
 
 ## Métricas de Sucesso
 
-| Métrica | Meta |
-|---|---|
-| Taxa de abandono no gate | < 10% |
-| Taxa de aprovação no gate | > 90% |
-| Incidentes de acesso indevido | Zero |
+| Métrica | Meta | Observação |
+|---|---|---|
+| Taxa de abandono no gate | < 10% | Referência para versões com analytics |
+| Taxa de aprovação no gate | > 90% | Referência para versões com analytics |
+| Incidentes de acesso indevido | Zero | Validável por inspeção manual |
 
 ---
 

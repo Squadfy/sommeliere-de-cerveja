@@ -151,29 +151,12 @@
 
 ### 9. Analytics de Uso
 
-**Propósito:** Coletar dados agregados e anônimos de uso para informar decisões de produto e conteúdo.
-
-**Eventos a Rastrear:**
-- Prato selecionado (mais consultados)
-- Cerveja recomendada mais visualizada
-- Taxa de compartilhamento
-- Fluxo de abandono por tela
-- Pratos buscados sem resultado (gap de conteúdo)
-
-**Regras de Negócio (RN07):** Apenas dados agregados e anônimos. Sem coleta de dados pessoais sem consentimento. Conformidade com LGPD.
+**Status:** ~~Fora do escopo do protótipo.~~ Removido desta versão — não haverá instrumentação de analytics.
 
 ---
 
-## Feature Condicional: Painel de Gestão de Conteúdo
+## Feature Removida: Painel de Gestão de Conteúdo
 
-**Status:** Escopo da Fase 4 — a definir ferramenta (painel próprio ou CMS existente).
+**Status:** Fora do escopo do protótipo.
 
-**Propósito:** Permitir que o cliente (Grupo Heineken) atualize pratos, cervejas, textos e imagens sem necessidade de novo deploy técnico (RN06).
-
-**Usuário:** Time de Marketing e conteúdo do Grupo Heineken.
-
-**Funcionalidades Previstas:**
-- Adicionar/remover pratos do catálogo
-- Editar textos de harmonização e dicas de serviço
-- Atualizar imagens de produtos
-- Ativar/desativar marcas do portfólio
+O conteúdo (pratos, cervejas, recomendações) será populado via **seed de banco de dados**. Não haverá painel administrativo ou CMS nesta versão. Atualizações de conteúdo requerem intervenção técnica direta no seed.

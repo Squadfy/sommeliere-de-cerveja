@@ -91,7 +91,7 @@ Na tela de recomendação (F04), a cerveja correspondente ao parâmetro `beer` �
 | **Sol** | Lager Tropical | Leve, refrescante, tropical | Grelhados leves, frutos do mar, petiscos, churrasco de frango |
 | **Devassa** | Puro Malte | Sabor marcante | Carnes com tempero, feijoada, pratos brasileiros intensos |
 
-> ⚠️ Conteúdo a ser validado pelo time de Marketing do Grupo Heineken.
+> ✅ Conteúdo disponível — será populado via seed.
 
 ---
 
@@ -111,7 +111,7 @@ Na tela de recomendação (F04), a cerveja correspondente ao parâmetro `beer` �
 - [ ] CTA "Ver pratos que combinam" navega para lista de pratos compatíveis
 - [ ] Na lista de pratos compatíveis, ao tocar em um prato, navega para `/prato/[slug]?beer=[beer-slug]`
 - [ ] Em F04, quando o parâmetro `?beer=` está presente, aquela cerveja aparece como #1 na recomendação
-- [ ] Cervejas desativadas via painel não aparecem no grid nem na navegação reversa
+- [ ] Cervejas inativas no seed não aparecem no grid nem na navegação reversa
 
 ---
 
@@ -178,7 +178,7 @@ db.recommendations.find({ beer_id: beerId, active: true })
 |---|---|
 | Cerveja sem pratos cadastrados na navegação reversa | Exibe mensagem "Em breve mais combinações" + link para home |
 | Parâmetro `?beer=` inválido em F04 | Ignorado — recomendação exibida na ordem padrão |
-| Cerveja desativada referenciada em parâmetro | Ignorado — recomendação exibida na ordem padrão |
+| Parâmetro `?beer=` com cerveja inativa no seed | Ignorado — recomendação exibida na ordem padrão |
 
 ---
 
@@ -186,4 +186,3 @@ db.recommendations.find({ beer_id: beerId, active: true })
 
 - F04 (Recomendação de Cerveja) — destino da navegação reversa + parâmetro de highlight
 - F05 (Dica de Serviço) — dados reutilizados na página de detalhe
-- F10 (Painel de Gestão) — ativar/desativar marcas, atualizar perfis

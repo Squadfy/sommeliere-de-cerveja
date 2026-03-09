@@ -1,12 +1,16 @@
 # Feature: Painel de Gestão de Conteúdo
 
 **ID:** F10
-**Status:** Fase 4 — Pós-MVP Core
-**Prioridade:** Alta (requisito de negócio RN06)
+**Status:** Fora do escopo — removido do protótipo
+**Prioridade:** N/A
 
 ---
 
-## Propósito
+## ⚠️ Feature Removida do Protótipo
+
+Painel de gestão de conteúdo está fora do escopo desta versão. O conteúdo será gerenciado via **seed de banco de dados**. Esta documentação é mantida como referência para versões futuras.
+
+## Propósito (referência futura)
 
 Permitir que o time de Marketing do Grupo Heineken atualize pratos, cervejas, textos e imagens sem necessidade de novo deploy técnico — garantindo autonomia editorial e agilidade para evoluir o catálogo.
 
