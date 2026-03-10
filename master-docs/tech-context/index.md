@@ -56,6 +56,7 @@
 
 - [AI Development Guide](CLAUDE.meta.md)
 - [Codebase Navigation Guide](CODEBASE_GUIDE.md)
+- [Architecture Overview](ARCHITECTURE.md)
 
 ## Layer 3: Domain-Specific Context
 
