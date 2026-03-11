@@ -33,13 +33,14 @@ Usar **Tailwind CSS** como utility-first CSS framework e **Shadcn/UI** como bibl
 /* tailwind.config.ts — cores do branding */
 colors: {
   heineken: {
-    green: '#00A650',      /* Verde Heineken principal */
-    dark: '#1A1A1A',       /* Fundo escuro */
-    gold: '#C8A951',       /* Dourado para destaques */
-    cream: '#F5F0E8',      /* Fundo claro */
+    green: '#288154',       /* Verde Heineken principal (implementação) */
+    'green-dark': '#1a5c3a', /* Verde escuro para hover/dark */
+    'green-light': '#34a066', /* Verde claro para destaques */
   }
 }
 ```
+
+> **Nota:** O verde implementado é `#288154`. O valor `#00A650` referenciado em materiais de marca Heineken foi avaliado e optou-se por `#288154` por melhor contraste e aderência ao design do protótipo.
 
 ## Alternativas Consideradas
 

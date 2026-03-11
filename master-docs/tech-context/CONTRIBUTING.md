@@ -9,9 +9,8 @@
 ### Pré-requisitos
 
 - **Node.js** 18+
-- **npm** 9+ (ou yarn/pnpm — verificar lockfile do projeto)
+- **pnpm** 8+ — gerenciador de pacotes obrigatório (definido em `engines.pnpm` do `package.json`)
 - **MongoDB** 6+ rodando localmente em `mongodb://localhost:27017`
-- **Serverless Framework** CLI: `npm install -g serverless`
 
 ### Instalação
 
@@ -21,7 +20,7 @@ git clone https://github.com/Squadfy/sommeliere-de-cerveja.git
 cd sommeliere-de-cerveja
 
 # Instala dependências de todos os workspaces
-npm install
+pnpm install
 
 # Configura variáveis de ambiente
 cp apps/api/.env.example apps/api/.env
@@ -34,8 +33,8 @@ cp apps/web/.env.local.example apps/web/.env.local
 ### Seed do Banco de Dados
 
 ```bash
-# Popula MongoDB com dados iniciais (categorias, pratos, cervejas, recomendações)
-npx ts-node scripts/seed.ts
+# Popula MongoDB com dados iniciais (8 categorias, 43 pratos, 8 cervejas, 32 recomendações)
+pnpm seed
 ```
 
 > O seed deve ser executado antes de qualquer teste de desenvolvimento. Sem dados, a API retorna 404 em todas as rotas.
@@ -43,12 +42,22 @@ npx ts-node scripts/seed.ts
 ### Iniciar em Desenvolvimento
 
 ```bash
-# Inicia apps/web (Next.js) e apps/api (serverless offline) em paralelo
-turbo dev
+# Inicia apps/web (Next.js) e apps/api (serverless offline) em paralelo via Turborepo
+pnpm dev
 
 # Ou individualmente:
-cd apps/web && npm run dev      # → http://localhost:3000
-cd apps/api && serverless offline  # → http://localhost:3001
+cd apps/web && pnpm dev         # → http://localhost:3000
+cd apps/api && pnpm dev         # → http://localhost:3001 (serverless offline)
+```
+
+### Executar Testes
+
+```bash
+# Executa testes em todos os pacotes
+pnpm test
+
+# Apenas a API (usa mongodb-memory-server — sem MongoDB local necessário)
+cd apps/api && pnpm test
 ```
 
 ---
@@ -152,16 +161,16 @@ import { cn } from '@/lib/utils'
 O protótipo não tem painel admin. Todo conteúdo é gerenciado via `scripts/seed.ts`.
 
 Para adicionar um novo prato:
-1. Editar `scripts/seed.ts` → array de dishes
-2. Definir `slug`, `name`, `category_id`, `search_tags`, `image_url`, `active: true`
-3. Adicionar recomendações no array de recommendations com `dish_id` correspondente
-4. Rodar `npx ts-node scripts/seed.ts`
+1. Editar `scripts/seed.ts` → array `DISHES`
+2. Definir `slug`, `name`, `category_slug`, `search_tags`, `image_url` (o `category_id` é resolvido automaticamente pelo seed a partir do `category_slug`)
+3. Adicionar recomendações no array `RECOMMENDATIONS` com `dish_slug` correspondente
+4. Rodar `pnpm seed`
 
 Para adicionar uma nova cerveja:
-1. Editar `scripts/seed.ts` → array de beers
-2. Preencher todos os campos incluindo `serving_temp_min/max` e `glass_type`
-3. Vincular recomendações no array de recommendations
-4. Rodar `npx ts-node scripts/seed.ts`
+1. Editar `scripts/seed.ts` → array `BEERS`
+2. Preencher todos os campos incluindo `serving_temp_min/max`, `glass_type`, `general_pairings` (array de strings) e `display_order`
+3. Vincular recomendações no array `RECOMMENDATIONS` com `beer_slug` correspondente
+4. Rodar `pnpm seed`
 
 ---
 
@@ -210,7 +219,7 @@ O deploy no protótipo é **manual**.
 
 ```bash
 cd apps/web
-npm run build
+pnpm build
 # Upload para AWS Amplify via console ou Amplify CLI
 ```
 
