@@ -68,10 +68,9 @@ sommeliere-de-cerveja/
 │       └── .env                      → MONGODB_URI
 │
 ├── packages/
-│   ├── types/                        → Tipos TypeScript compartilhados
-│   │   └── src/
-│   │       └── index.ts              → Interfaces: Category, Dish, Beer, Recommendation
-│   └── db/                           → (Opcional) Modelos e helpers compartilhados
+│   └── types/                        → Tipos TypeScript compartilhados
+│       └── src/
+│           └── index.ts              → Interfaces: Category, Dish, Beer, Recommendation, DishRecommendationResponse + type HarmonyPrinciple
 │
 ├── scripts/
 │   └── seed.ts                       → Script de seed do MongoDB (categorias, pratos, cervejas, recomendações)
@@ -80,8 +79,8 @@ sommeliere-de-cerveja/
 │   ├── business-context/             → Features e regras de negócio
 │   └── tech-context/                 → Esta pasta — contexto técnico
 │
-├── turbo.json                        → Pipeline Turborepo (build, dev, lint)
-├── package.json                      → Workspace root (scripts globais)
+├── pnpm-workspace.yaml               → Declaração dos workspaces pnpm (apps/*, packages/*)
+├── package.json                      → Workspace root (scripts globais, engines: node>=18, pnpm>=8)
 └── .gitignore
 ```
 
@@ -191,10 +190,11 @@ import { getRecommendations } from '@/lib/api'
 
 | Comando | O que faz |
 |---|---|
-| `turbo dev` | Inicia `apps/web` (Next.js dev) e `apps/api` (serverless offline) em paralelo |
-| `turbo build` | Build de produção de todos os apps |
-| `turbo lint` | Lint em todos os pacotes |
-| `npx ts-node scripts/seed.ts` | Popula MongoDB com dados iniciais |
+| `pnpm dev` | Inicia `apps/web` (Next.js dev) e `apps/api` (serverless offline) em paralelo via Turborepo |
+| `pnpm build` | Build de produção de todos os apps |
+| `pnpm lint` | Lint em todos os pacotes |
+| `pnpm test` | Executa testes em todos os pacotes (jest com mongodb-memory-server em `apps/api`) |
+| `pnpm seed` | Popula MongoDB com dados iniciais via `scripts/seed.ts` |
 
 ---
 

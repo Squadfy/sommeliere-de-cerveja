@@ -120,8 +120,10 @@ Endpoint central do app. Retorna a recomendação de cervejas para um prato, com
     dish: {
       slug: string
       name: string
-      category: string   // nome da categoria
-      image_url: string
+      category: {        // null se categoria não encontrada
+        slug: string
+        name: string
+      } | null
     }
     recommendations: Array<{
       beer: {
@@ -135,7 +137,7 @@ Endpoint central do app. Retorna a recomendação de cervejas para um prato, com
         glass_type: string
       }
       affinity_score: number           // 0–100
-      harmony_principle: 'semelhança' | 'contraste' | 'complementação'
+      harmony_principle: 'complemento' | 'contraste' | 'regionalidade' | 'intensidade' | 'limpeza_do_paladar'
       recommendation_title: string
       sensory_explanation: string
     }>
@@ -211,7 +213,7 @@ Retorna detalhes completos de uma cerveja.
     brand: string
     style: string
     sensory_profile: string
-    general_pairings: string
+    general_pairings: string[]
     image_url: string
     serving_temp_min: number
     serving_temp_max: number
@@ -246,15 +248,13 @@ Navegação reversa (F07): retorna pratos que têm recomendação ativa com esta
       image_url: string
     }
     dishes: Array<{
-      dish: {
-        slug: string
-        name: string
-        image_url: string
-        category: string
-      }
-      affinity_score: number
-      recommendation_title: string
-    }>
+      slug: string
+      name: string
+      image_url: string
+      category_id: string
+      search_tags: string[]
+      active: boolean
+    }>  // pratos com recomendação ativa para esta cerveja, ordenados por affinity_score DESC
   }
 }
 ```
@@ -289,18 +289,23 @@ Busca full-text de pratos por nome ou tags.
 **Response**
 ```typescript
 {
-  data: Array<{
-    slug: string
-    name: string
-    image_url: string
-    category: string   // nome da categoria
-  }>
+  data: {
+    query: string
+    results: Array<{
+      slug: string
+      name: string
+      image_url: string
+      search_tags: string[]
+      category_id: string
+    }>
+    count: number
+  }
 }
 ```
 
 **Resposta vazia (sem resultados)**
 ```json
-{ "data": [] }
+{ "data": { "query": "xyz", "results": [], "count": 0 } }
 ```
 
 **Erros**
@@ -347,36 +352,36 @@ db.beers.createIndex({ slug: 1 }, { unique: true })
 ## Configuração Serverless Framework
 
 ```yaml
-# serverless.yml — estrutura esperada
+# serverless.yml — estrutura implementada (HTTP API v2 — httpApi)
 functions:
   categories:
     handler: src/handlers/categories.list
     events:
-      - http: { path: categories, method: get }
+      - httpApi: { path: /categories, method: GET }
   categoryDishes:
     handler: src/handlers/categories.dishes
     events:
-      - http: { path: categories/{slug}/dishes, method: get }
+      - httpApi: { path: /categories/{slug}/dishes, method: GET }
   dishRecommendations:
     handler: src/handlers/dishes.recommendations
     events:
-      - http: { path: dishes/{slug}/recommendations, method: get }
+      - httpApi: { path: /dishes/{slug}/recommendations, method: GET }
   beers:
     handler: src/handlers/beers.list
     events:
-      - http: { path: beers, method: get }
+      - httpApi: { path: /beers, method: GET }
   beerDetail:
     handler: src/handlers/beers.detail
     events:
-      - http: { path: beers/{slug}, method: get }
+      - httpApi: { path: /beers/{slug}, method: GET }
   beerDishes:
     handler: src/handlers/beers.dishes
     events:
-      - http: { path: beers/{slug}/dishes, method: get }
+      - httpApi: { path: /beers/{slug}/dishes, method: GET }
   search:
     handler: src/handlers/search.search
     events:
-      - http: { path: search, method: get }
+      - httpApi: { path: /search, method: GET }
 ```
 
 ---

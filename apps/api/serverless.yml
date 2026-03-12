@@ -1,0 +1,80 @@
+service: sommeliere-api
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: sa-east-1
+  memorySize: 256
+  timeout: 10
+  environment:
+    MONGODB_URI: ${env:MONGODB_URI, 'mongodb://localhost:27017/sommeliere'}
+    NODE_ENV: ${env:NODE_ENV, 'production'}
+  httpApi:
+    cors: true
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    target: node18
+    platform: node
+    concurrency: 10
+  serverless-offline:
+    httpPort: 3001
+    noPrependStageInUrl: true
+
+functions:
+  categories:
+    handler: src/handlers/categories.list
+    events:
+      - httpApi:
+          path: /categories
+          method: GET
+
+  categoryDishes:
+    handler: src/handlers/categories.dishes
+    events:
+      - httpApi:
+          path: /categories/{slug}/dishes
+          method: GET
+
+  dishRecommendations:
+    handler: src/handlers/dishes.recommendations
+    events:
+      - httpApi:
+          path: /dishes/{slug}/recommendations
+          method: GET
+
+  beers:
+    handler: src/handlers/beers.list
+    events:
+      - httpApi:
+          path: /beers
+          method: GET
+
+  beerDetail:
+    handler: src/handlers/beers.detail
+    events:
+      - httpApi:
+          path: /beers/{slug}
+          method: GET
+
+  beerDishes:
+    handler: src/handlers/beers.dishes
+    events:
+      - httpApi:
+          path: /beers/{slug}/dishes
+          method: GET
+
+  search:
+    handler: src/handlers/search.search
+    events:
+      - httpApi:
+          path: /search
+          method: GET

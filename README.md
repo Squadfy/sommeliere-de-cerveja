@@ -1,36 +1,92 @@
-# 🍺 Sommelière de Cerveja
+# Sommelière de Cerveja
 
-> Guia rápido de harmonização entre pratos e estilos de cerveja.
+> Guia rápido de harmonização entre pratos e estilos de cerveja do portfólio Heineken.
 
-## Sobre o Projeto
+O usuário seleciona um prato e o app recomenda qual cerveja combina melhor — com explicação sensorial da harmonização.
 
-MVP educacional desenvolvido como projeto multidisciplinar de mentoria.
+## Requisitos
 
-O usuário seleciona um prato (ex: pizza, carne, sushi) e o app recomenda qual estilo de cerveja do portfólio Heineken combina melhor — Heineken, Amstel, Eisenbahn, entre outros — com explicação do porquê da harmonização.
+- **Node.js** 18+
+- **pnpm** 8+ (`npm install -g pnpm`)
+- **MongoDB** 6+ rodando em `mongodb://localhost:27017`
 
-## Fluxo
+## Instalação
+
+```bash
+pnpm install
+```
+
+## Configuração
+
+```bash
+cp apps/api/.env.example apps/api/.env
+cp apps/web/.env.local.example apps/web/.env.local
+```
+
+Editar `apps/api/.env` com a URI do MongoDB:
 
 ```
-Usuário seleciona o prato → App recomenda estilo de cerveja → Exibe explicação da harmonização
+MONGODB_URI=mongodb://localhost:27017/sommeliere
 ```
 
-## Stack (planejado)
+## Seed do Banco
 
-- **Frontend:** Web (dropdown de pratos + resultado)
-- **Backend:** API com lógica de recomendação via IA
-- **Dados:** Catálogo de estilos de cerveja e harmonizações
+Popula o MongoDB com dados iniciais (8 categorias, 43 pratos, 8 cervejas, 32 recomendações):
 
-## Marcas do portfólio
+```bash
+pnpm seed
+```
 
-- Heineken
-- Amstel
-- Eisenbahn
-- e outras do grupo Heineken
+> O seed deve ser executado antes de iniciar o projeto. Sem dados, a API retorna 404 em todas as rotas.
 
-## Status
+## Desenvolvimento
 
-🚧 Em desenvolvimento — MVP inicial
+```bash
+# Inicia frontend e API em paralelo
+pnpm dev
+
+# Ou individualmente:
+cd apps/web && pnpm dev   # http://localhost:3000
+cd apps/api && pnpm dev   # http://localhost:3001
+```
+
+## Testes
+
+```bash
+# Todos os workspaces (usa mongodb-memory-server — sem MongoDB local necessário)
+pnpm test
+```
+
+## Build
+
+```bash
+pnpm build
+```
+
+## Stack
+
+| Camada | Tecnologia |
+|---|---|
+| Monorepo | Turborepo + pnpm workspaces |
+| Frontend | Next.js 14 (App Router) · TypeScript · Tailwind CSS · Shadcn/UI |
+| Backend | Serverless Framework v3 · Node.js 20 · AWS Lambda |
+| Banco | MongoDB 6 + Mongoose 8 |
+| Testes | Jest + mongodb-memory-server |
+| Deploy | AWS Amplify (web) · AWS Lambda (api) |
+
+## Estrutura
+
+```
+sommeliere-de-cerveja/
+├── apps/
+│   ├── web/          Next.js 14 — PWA frontend
+│   └── api/          Serverless Framework — Lambda handlers
+├── packages/
+│   └── types/        Interfaces TypeScript compartilhadas
+└── scripts/
+    └── seed.ts       Popula o banco com dados iniciais
+```
 
 ---
 
-Projeto de estudo multidisciplinar — Mentoria Time 4
+Projeto de mentoria multidisciplinar — Time 4
