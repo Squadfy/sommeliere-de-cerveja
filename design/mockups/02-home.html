@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home — Sommelière de Cerveja</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      background: #0a1a0f;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    .app-screen {
+      width: 430px;
+      min-height: 932px;
+      background: #F8F4EE;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .header-bg {
+      background: linear-gradient(160deg, #003d1f 0%, #006633 60%, #007a3d 100%);
+    }
+    .search-bar {
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      color: white;
+      padding: 12px 20px;
+      font-size: 15px;
+      width: 100%;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-bar::placeholder { color: rgba(255,255,255,0.5); }
+    .search-bar:focus { background: rgba(255,255,255,0.18); border-color: rgba(200,150,12,0.6); }
+    .category-card {
+      background: white;
+      border-radius: 16px;
+      padding: 16px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      border: 1.5px solid transparent;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .category-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      border-color: #006633;
+    }
+    .category-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+    .featured-beer {
+      background: linear-gradient(135deg, #003d1f, #006633);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .featured-beer:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,102,51,0.3); }
+    .search-results { display: none; }
+    .search-results.visible { display: block; }
+    .search-result-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: white;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-decoration: none;
+      border: 1.5px solid transparent;
+    }
+    .search-result-item:hover { border-color: #006633; box-shadow: 0 2px 8px rgba(0,102,51,0.1); }
+    .bottom-nav {
+      position: sticky;
+      bottom: 0;
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+    }
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+      cursor: pointer;
+      transition: color 0.15s;
+      text-decoration: none;
+    }
+    .nav-item.active { color: #006633; }
+    .nav-item:not(.active) { color: #9ca3af; }
+    .nav-item:not(.active):hover { color: #6b7280; }
+  </style>
+</head>
+<body>
+
+  <!-- Mockup Banner -->
+  <div class="w-full bg-yellow-400 text-yellow-900 text-center text-xs font-bold py-1.5 tracking-widest uppercase fixed top-0 left-0 right-0 z-50">
+    MOCKUP — SOMMELIÈRE DE CERVEJA · F02 Home + F03 Busca
+  </div>
+
+  <div class="flex justify-center pt-8 pb-8">
+    <div class="app-screen flex flex-col">
+
+      <!-- Header -->
+      <div class="header-bg px-6 pt-10 pb-8">
+        <!-- Top bar -->
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <p class="text-green-300 text-xs tracking-widest uppercase font-medium mb-0.5">Grupo Heineken</p>
+            <h1 class="text-white text-xl font-light tracking-wider">
+              <span class="font-normal">Sommelière</span>
+              <span class="text-yellow-300 font-light"> de Cerveja</span>
+            </h1>
+          </div>
+          <a href="05-marcas.html" class="w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);">
+            <i class="fa-solid fa-award text-yellow-300 text-base"></i>
+          </a>
+        </div>
+
+        <!-- Greeting -->
+        <p class="text-green-200 text-sm font-light mb-5">O que você vai comer hoje?</p>
+
+        <!-- Search Bar -->
+        <div class="relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-white opacity-50 text-sm"></i>
+          <input
+            type="text"
+            class="search-bar pl-11 pr-12"
+            placeholder="Buscar prato... ex: picanha, sushi"
+            id="searchInput"
+            oninput="handleSearch(this.value)"
+          />
+          <button class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full flex items-center justify-center" style="background: rgba(200,150,12,0.8);" onclick="clearSearch()">
+            <i class="fa-solid fa-xmark text-white text-xs" id="clearBtn" style="display:none;"></i>
+            <i class="fa-solid fa-sliders text-white text-xs" id="filterBtn"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Search Results (initially hidden) -->
+      <div class="search-results px-4 pt-4" id="searchResults">
+        <p class="text-xs text-gray-500 mb-3 px-1">Resultados para "<span id="searchQuery" class="text-gray-700 font-medium"></span>"</p>
+        <div id="searchList"></div>
+      </div>
+
+      <!-- Main Content (hidden during search) -->
+      <div id="mainContent" class="flex-1 overflow-y-auto">
+
+        <!-- Featured Beer of the week -->
+        <div class="px-4 pt-5 pb-2">
+          <div class="featured-beer" onclick="window.location.href='05-marcas.html'">
+            <div class="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style="background: rgba(255,255,255,0.1);">
+              <i class="fa-solid fa-star text-yellow-300 text-2xl"></i>
+            </div>
+            <div class="flex-1">
+              <p class="text-green-300 text-xs tracking-widest uppercase font-medium mb-0.5">Destaque</p>
+              <h3 class="text-white font-semibold text-base leading-tight mb-1">Portfólio Completo</h3>
+              <p class="text-green-200 text-xs font-light">Conheça todas as cervejas Heineken disponíveis</p>
+            </div>
+            <i class="fa-solid fa-chevron-right text-green-400 text-sm"></i>
+          </div>
+        </div>
+
+        <!-- Categories Section -->
+        <div class="px-4 pt-5 pb-2">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-gray-800 font-semibold text-base">Categorias</h2>
+            <span class="text-gray-400 text-xs">8 categorias</span>
+          </div>
+
+          <!-- Category Grid -->
+          <div class="grid grid-cols-4 gap-3 mb-2">
+
+            <a href="03-categoria.html?cat=carnes" class="category-card">
+              <div class="category-icon" style="background: linear-gradient(135deg, #fee2e2, #fca5a5);">
+                <span>🥩</span>
+              </div>
+              <span class="text-gray-700 text-xs font-medium leading-tight">Carnes</span>
+            </a>
+
+            <a href="03-categoria.html?cat=massas" class="category-card">
+              <div class="category-icon" style="background: linear-gradient(135deg, #fef3c7, #fcd34d);">
+                <span>🍝</span>
+              </div>
+              <span class="text-gray-700 text-xs font-medium leading-tight">Massas</span>
+            </a>
+
+            <a href="03-categoria.html?cat=frutos-do-mar" class="category-card">
+              <div class="category-icon" style="background: linear-gradient(135deg, #dbeafe, #93c5fd);">
+                <span>🦐</span>
+              </div>
+              <span class="text-gray-700 text-xs font-medium leading-tight">Frutos do Mar</span>
+            </a>
+
+            <a href="03-categoria.html?cat=aves" class="category-card">
+              <div class="category-icon" style="background: linear-gradient(135deg, #fef9c3, #fde047);">
+                <span>🍗</span>
+              </div>
+              <span class="text-gray-700 text-xs font-medium leading-tight">Aves</span>
+            </a>
+
+            <a href="03-categoria.html?cat=saladas" class="category-card">
+              <div class="category-icon" style="background: linear-gradient(135deg, #dcfce7, #86efac);">
+                <span>🥗</span>
+              </div>
+              <span class="text-gray-700 text-xs font-medium leading-tight">Saladas</span>
+            </a>
+
+            <a href="03-categoria.html?cat=petiscos" class="category-card">
+              <div class="category-icon" style="background: linear-gradient(135deg, #fde8d8, #fdba74);">
+                <span>🍟</span>
+              </div>
+              <span class="text-gray-700 text-xs font-medium leading-tight">Petiscos</span>
+            </a>
+
+            <a href="03-categoria.html?cat=vegano" class="category-card">
+              <div class="category-icon" style="background: linear-gradient(135deg, #d1fae5, #6ee7b7);">
+                <span>🥦</span>
+              </div>
+              <span class="text-gray-700 text-xs font-medium leading-tight">Vegano</span>
+            </a>
+
+            <a href="03-categoria.html?cat=sobremesas" class="category-card">
+              <div class="category-icon" style="background: linear-gradient(135deg, #fce7f3, #f9a8d4);">
+                <span>🍮</span>
+              </div>
+              <span class="text-gray-700 text-xs font-medium leading-tight">Sobremesas</span>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- Popular pairings -->
+        <div class="px-4 pt-3 pb-4">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-gray-800 font-semibold text-base">Harmonizações em Destaque</h2>
+          </div>
+
+          <div class="space-y-3">
+
+            <!-- Pairing item -->
+            <a href="04-prato.html" class="flex items-center gap-4 bg-white rounded-2xl p-4 shadow-sm border border-gray-100 no-underline hover:shadow-md hover:border-green-200 transition-all">
+              <div class="w-14 h-14 rounded-xl flex items-center justify-center text-2xl flex-shrink-0" style="background: #fee2e2;">
+                🥩
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="text-gray-800 font-medium text-sm">Picanha na Brasa</h4>
+                <p class="text-gray-500 text-xs mt-0.5">Carnes · 3 harmonizações</p>
+                <div class="flex items-center gap-1 mt-1.5">
+                  <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full font-medium">Amstel</span>
+                  <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full font-medium">IPA</span>
+                  <span class="text-gray-400 text-xs">+1</span>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-gray-300 text-sm flex-shrink-0"></i>
+            </a>
+
+            <a href="04-prato.html" class="flex items-center gap-4 bg-white rounded-2xl p-4 shadow-sm border border-gray-100 no-underline hover:shadow-md hover:border-green-200 transition-all">
+              <div class="w-14 h-14 rounded-xl flex items-center justify-center text-2xl flex-shrink-0" style="background: #dbeafe;">
+                🦐
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="text-gray-800 font-medium text-sm">Camarão na Manteiga</h4>
+                <p class="text-gray-500 text-xs mt-0.5">Frutos do Mar · 2 harmonizações</p>
+                <div class="flex items-center gap-1 mt-1.5">
+                  <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full font-medium">Heineken®</span>
+                  <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full font-medium">Sol</span>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-gray-300 text-sm flex-shrink-0"></i>
+            </a>
+
+            <a href="04-prato.html" class="flex items-center gap-4 bg-white rounded-2xl p-4 shadow-sm border border-gray-100 no-underline hover:shadow-md hover:border-green-200 transition-all">
+              <div class="w-14 h-14 rounded-xl flex items-center justify-center text-2xl flex-shrink-0" style="background: #d1fae5;">
+                🍛
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="text-gray-800 font-medium text-sm">Feijoada Completa</h4>
+                <p class="text-gray-500 text-xs mt-0.5">Carnes · 2 harmonizações</p>
+                <div class="flex items-center gap-1 mt-1.5">
+                  <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full font-medium">Devassa</span>
+                  <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full font-medium">Amstel</span>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-gray-300 text-sm flex-shrink-0"></i>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- Pairing tip card -->
+        <div class="px-4 pb-4">
+          <div class="rounded-2xl p-4 flex items-start gap-3" style="background: linear-gradient(135deg, #fff9e6, #fef3c7); border: 1px solid #fcd34d;">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style="background: #C8960C;">
+              <i class="fa-solid fa-lightbulb text-white text-xs"></i>
+            </div>
+            <div>
+              <p class="text-yellow-800 font-semibold text-sm mb-1">Dica do Sommelier</p>
+              <p class="text-yellow-700 text-xs leading-relaxed">
+                Cervejas leves combinam com pratos suaves, e cervejas encorpadas com preparações mais intensas. Nenhum deve se sobrepor ao outro.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end mainContent -->
+
+      <!-- Footer disclaimer -->
+      <div class="px-4 py-4 text-center border-t border-gray-200 bg-white">
+        <p class="text-gray-400 text-xs font-medium tracking-wide">
+          <i class="fa-solid fa-circle-info mr-1.5" style="color: #C8960C;"></i>
+          Beba com Moderação. Venda Proibida para Menores de 18 Anos.
+        </p>
+      </div>
+
+      <!-- Bottom Nav -->
+      <div class="bottom-nav px-2">
+        <a href="02-home.html" class="nav-item active">
+          <i class="fa-solid fa-house text-lg mb-1"></i>
+          <span class="text-xs font-medium">Início</span>
+        </a>
+        <a href="03-categoria.html" class="nav-item">
+          <i class="fa-solid fa-utensils text-lg mb-1"></i>
+          <span class="text-xs">Pratos</span>
+        </a>
+        <a href="05-marcas.html" class="nav-item">
+          <i class="fa-solid fa-award text-lg mb-1"></i>
+          <span class="text-xs">Marcas</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Nav hint -->
+  <div class="fixed bottom-4 left-0 right-0 flex justify-center z-40 pointer-events-none">
+    <div class="pointer-events-auto">
+      <a href="index.html" class="bg-gray-900 border border-gray-700 text-gray-400 text-xs px-4 py-2 rounded-full hover:text-white transition-colors">
+        <i class="fa-solid fa-grid-2 mr-1.5"></i> Ver todas as telas
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Search data
+    const allDishes = [
+      { name: 'Picanha na Brasa', category: 'Carnes', emoji: '🥩', beers: ['Amstel', 'IPA', 'Sol'] },
+      { name: 'Costela BBQ', category: 'Carnes', emoji: '🍖', beers: ['Devassa', 'Amstel'] },
+      { name: 'Hambúrguer Artesanal', category: 'Carnes', emoji: '🍔', beers: ['Eisenbahn IPA', 'Amstel'] },
+      { name: 'Filé Mignon ao Molho', category: 'Carnes', emoji: '🥩', beers: ['Baden Baden', 'Amstel'] },
+      { name: 'Camarão na Manteiga', category: 'Frutos do Mar', emoji: '🦐', beers: ['Heineken®', 'Sol'] },
+      { name: 'Salmão Grelhado', category: 'Frutos do Mar', emoji: '🐟', beers: ['Heineken®', 'Weizenbier'] },
+      { name: 'Sushi', category: 'Frutos do Mar', emoji: '🍱', beers: ['Heineken®', 'Weizenbier'] },
+      { name: 'Frango à Parmegiana', category: 'Aves', emoji: '🍗', beers: ['Eisenbahn Pilsen', 'Amstel'] },
+      { name: 'Frango Grelhado', category: 'Aves', emoji: '🍗', beers: ['Sol', 'Eisenbahn Pilsen'] },
+      { name: 'Macarrão ao Molho Bolonhesa', category: 'Massas', emoji: '🍝', beers: ['Amstel', 'Devassa'] },
+      { name: 'Lasanha de Queijo', category: 'Massas', emoji: '🫕', beers: ['Baden Baden', 'Amstel'] },
+      { name: 'Pastel de Carne', category: 'Petiscos', emoji: '🥟', beers: ['Eisenbahn Pilsen', 'Sol'] },
+      { name: 'Feijoada Completa', category: 'Carnes', emoji: '🍛', beers: ['Devassa', 'Amstel'] },
+    ];
+
+    function handleSearch(query) {
+      const resultsEl = document.getElementById('searchResults');
+      const mainEl = document.getElementById('mainContent');
+      const clearBtn = document.getElementById('clearBtn');
+      const filterBtn = document.getElementById('filterBtn');
+
+      if (!query || query.trim().length < 2) {
+        resultsEl.classList.remove('visible');
+        mainEl.style.display = 'block';
+        clearBtn.style.display = 'none';
+        filterBtn.style.display = 'block';
+        return;
+      }
+
+      clearBtn.style.display = 'block';
+      filterBtn.style.display = 'none';
+      mainEl.style.display = 'none';
+      resultsEl.classList.add('visible');
+
+      document.getElementById('searchQuery').textContent = query;
+
+      const filtered = allDishes.filter(d =>
+        d.name.toLowerCase().includes(query.toLowerCase()) ||
+        d.category.toLowerCase().includes(query.toLowerCase())
+      );
+
+      const listEl = document.getElementById('searchList');
+      if (filtered.length === 0) {
+        listEl.innerHTML = '<div class="text-center py-8"><p class="text-gray-400 text-sm">Nenhum prato encontrado.</p><p class="text-gray-500 text-xs mt-2">Tente outra busca ou navegue pelas categorias.</p></div>';
+        return;
+      }
+
+      listEl.innerHTML = filtered.map(d => `
+        <a href="04-prato.html" class="search-result-item">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#f3f4f6;">${d.emoji}</div>
+          <div class="flex-1 min-w-0">
+            <p class="text-gray-800 font-medium text-sm">${d.name}</p>
+            <p class="text-gray-500 text-xs">${d.category} · ${d.beers.length} harmonização${d.beers.length > 1 ? 'ões' : ''}</p>
+            <div class="flex gap-1 mt-1">
+              ${d.beers.slice(0,2).map(b => `<span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full">${b}</span>`).join('')}
+              ${d.beers.length > 2 ? `<span class="text-gray-400 text-xs">+${d.beers.length - 2}</span>` : ''}
+            </div>
+          </div>
+          <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+        </a>
+      `).join('');
+    }
+
+    function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      handleSearch('');
+    }
+  </script>
+
+</body>
+</html>

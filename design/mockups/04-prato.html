@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prato — Sommelière de Cerveja</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      background: #0a1a0f;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    .app-screen {
+      width: 430px;
+      background: #F8F4EE;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-area {
+      background: linear-gradient(165deg, #4a1505 0%, #7c2d12 40%, #92400e 100%);
+      padding: 36px 20px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-area::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: #F8F4EE;
+      border-radius: 24px 24px 0 0;
+    }
+    .dish-hero-emoji {
+      width: 100px;
+      height: 100px;
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Beer Recommendation Card */
+    .beer-rec-card {
+      background: white;
+      border-radius: 20px;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .beer-rec-card.selected {
+      border-color: #006633;
+      box-shadow: 0 6px 24px rgba(0,102,51,0.15);
+    }
+    .beer-rec-card:not(.selected) {
+      opacity: 0.85;
+      border-color: #e5e7eb;
+    }
+    .beer-rec-card:not(.selected):hover {
+      border-color: #a7f3d0;
+      opacity: 1;
+    }
+    .beer-icon-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+    .rank-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .rank-1 { background: #C8960C; color: white; }
+    .rank-2 { background: #d1d5db; color: #374151; }
+    .rank-3 { background: #c07b58; color: white; }
+
+    /* Principle badge */
+    .principle-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    /* Service tip */
+    .service-tip {
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Detail panels */
+    .detail-panel { display: none; }
+    .detail-panel.visible { display: block; }
+
+    /* Expanded state of beer card */
+    .beer-body-expanded { display: none; }
+    .beer-rec-card.selected .beer-body-expanded { display: block; }
+
+    /* CTA buttons */
+    .btn-whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #25d366;
+      color: white;
+      padding: 15px 24px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-whatsapp:hover { background: #22be5c; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(37,211,102,0.4); }
+    .btn-more {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: transparent;
+      color: #006633;
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      width: 100%;
+      border: 2px solid #006633;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-more:hover { background: #f0fdf4; }
+    .bottom-nav {
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+    }
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+      cursor: pointer;
+      transition: color 0.15s;
+      text-decoration: none;
+    }
+    .nav-item.active { color: #006633; }
+    .nav-item:not(.active) { color: #9ca3af; }
+
+    /* More combinations modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      display: none;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-sheet {
+      width: 430px;
+      background: white;
+      border-radius: 24px 24px 0 0;
+      padding: 0;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+    .modal-handle {
+      width: 40px;
+      height: 4px;
+      background: #e5e7eb;
+      border-radius: 2px;
+      margin: 12px auto 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mockup Banner -->
+  <div class="w-full bg-yellow-400 text-yellow-900 text-center text-xs font-bold py-1.5 tracking-widest uppercase fixed top-0 left-0 right-0 z-50">
+    MOCKUP — SOMMELIÈRE DE CERVEJA · F04 F05 F06 F08 Prato + Recomendação
+  </div>
+
+  <div class="flex justify-center pt-8 pb-4">
+    <div class="app-screen">
+
+      <!-- Hero area -->
+      <div class="hero-area relative">
+        <!-- Back button -->
+        <div class="flex items-center justify-between mb-5 relative z-10">
+          <a href="03-categoria.html" class="w-9 h-9 rounded-full flex items-center justify-center" style="background: rgba(255,255,255,0.12);">
+            <i class="fa-solid fa-arrow-left text-white text-sm"></i>
+          </a>
+          <button onclick="shareWhatsApp()" class="w-9 h-9 rounded-full flex items-center justify-center" style="background: rgba(37,211,102,0.2); border: 1px solid rgba(37,211,102,0.3);">
+            <i class="fab fa-whatsapp text-green-300 text-base"></i>
+          </button>
+        </div>
+
+        <!-- Dish info -->
+        <div class="flex items-end gap-5 relative z-10">
+          <div class="dish-hero-emoji">🥩</div>
+          <div class="flex-1 pb-1">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="bg-orange-500 bg-opacity-30 text-orange-200 text-xs px-2.5 py-0.5 rounded-full font-medium border border-orange-400 border-opacity-30">Carnes</span>
+              <span class="bg-yellow-400 bg-opacity-20 text-yellow-200 text-xs px-2.5 py-0.5 rounded-full font-medium border border-yellow-300 border-opacity-30 flex items-center gap-1">
+                <i class="fa-solid fa-star text-xs"></i> Destaque
+              </span>
+            </div>
+            <h1 class="text-white text-2xl font-bold leading-tight">Picanha<br>na Brasa</h1>
+            <p class="text-orange-200 text-xs mt-1.5 font-light leading-relaxed">Corte nobre grelhado na chama com sal grosso</p>
+          </div>
+        </div>
+
+        <!-- Decorative elements in header -->
+        <div class="absolute top-4 right-4 w-32 h-32 rounded-full opacity-10" style="background: radial-gradient(circle, white, transparent);"></div>
+        <div class="absolute top-16 right-16 w-16 h-16 rounded-full opacity-10" style="background: radial-gradient(circle, #C8960C, transparent);"></div>
+      </div>
+
+      <!-- Main scroll area -->
+      <div class="flex-1 overflow-y-auto">
+
+        <!-- Section: Recomendações -->
+        <div class="px-4 pt-6 pb-2">
+          <div class="flex items-center justify-between mb-1">
+            <h2 class="text-gray-800 font-bold text-base">Harmonizações Recomendadas</h2>
+            <span class="text-gray-400 text-xs">3 cervejas</span>
+          </div>
+          <p class="text-gray-500 text-xs mb-4">Ordenadas por grau de afinidade com o prato</p>
+
+          <!-- Beer Rec 1 — Amstel (PRIMARY, selected) -->
+          <div class="beer-rec-card selected mb-3" id="card1" onclick="selectCard('card1')">
+            <div class="p-4">
+              <div class="flex items-start gap-3">
+                <div class="beer-icon-circle" style="background: linear-gradient(135deg, #fef3c7, #fde68a);">
+                  🍺
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-1">
+                    <div class="rank-badge rank-1">1</div>
+                    <h3 class="text-gray-800 font-bold text-base">Amstel</h3>
+                    <span class="ml-auto text-green-600 text-xs font-semibold bg-green-50 px-2 py-0.5 rounded-full">Alta afinidade</span>
+                  </div>
+                  <p class="text-gray-500 text-xs mb-2">Puro malte · Lager encorpada</p>
+                  <div class="flex items-center gap-1.5">
+                    <span class="principle-badge" style="background:#dcfce7; color:#15803d;">
+                      <i class="fa-solid fa-arrows-left-right text-xs"></i>
+                      Contraste
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Expanded content (visible when selected) -->
+              <div class="beer-body-expanded mt-4">
+                <div class="bg-green-50 rounded-2xl p-4 border border-green-100 mb-3">
+                  <p class="text-green-900 text-sm leading-relaxed font-light">
+                    "A maltosidade da Amstel equilibra a gordura da picanha, criando uma harmonização por <strong class="font-semibold">contraste refrescante</strong>. O sabor encorpado acompanha o corte nobre sem se sobrepor."
+                  </p>
+                </div>
+
+                <!-- Service Tips -->
+                <div class="space-y-2 mb-3">
+                  <h4 class="text-gray-700 font-semibold text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-circle-info text-yellow-500"></i>
+                    Dica de Serviço
+                  </h4>
+                  <div class="grid grid-cols-2 gap-2">
+                    <div class="service-tip">
+                      <i class="fa-solid fa-temperature-low text-blue-500 text-sm flex-shrink-0"></i>
+                      <div>
+                        <p class="text-gray-500 text-xs">Temperatura</p>
+                        <p class="text-gray-800 font-semibold text-sm">2 – 4°C</p>
+                      </div>
+                    </div>
+                    <div class="service-tip">
+                      <i class="fa-solid fa-wine-glass text-purple-500 text-sm flex-shrink-0"></i>
+                      <div>
+                        <p class="text-gray-500 text-xs">Copo</p>
+                        <p class="text-gray-800 font-semibold text-sm">Caldereta</p>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-gray-400 text-xs pl-1">Também aceita: copo tulipa ou long neck</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Beer Rec 2 — Eisenbahn IPA -->
+          <div class="beer-rec-card mb-3" id="card2" onclick="selectCard('card2')">
+            <div class="p-4">
+              <div class="flex items-start gap-3">
+                <div class="beer-icon-circle" style="background: linear-gradient(135deg, #d1fae5, #a7f3d0);">
+                  🍺
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-1">
+                    <div class="rank-badge rank-2">2</div>
+                    <h3 class="text-gray-800 font-bold text-base">Eisenbahn IPA</h3>
+                    <span class="ml-auto text-blue-600 text-xs font-semibold bg-blue-50 px-2 py-0.5 rounded-full">Boa afinidade</span>
+                  </div>
+                  <p class="text-gray-500 text-xs mb-2">Lupulada · Amargor elevado</p>
+                  <div class="flex items-center gap-1.5">
+                    <span class="principle-badge" style="background:#dcfce7; color:#15803d;">
+                      <i class="fa-solid fa-arrows-left-right text-xs"></i>
+                      Contraste
+                    </span>
+                    <span class="principle-badge" style="background:#eff6ff; color:#1e40af;">
+                      <i class="fa-solid fa-puzzle-piece text-xs"></i>
+                      Complementação
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Expanded content -->
+              <div class="beer-body-expanded mt-4">
+                <div class="bg-green-50 rounded-2xl p-4 border border-green-100 mb-3">
+                  <p class="text-green-900 text-sm leading-relaxed font-light">
+                    "O amargor da IPA <strong class="font-semibold">corta a gordura da carne</strong> e realça o sabor defumado da brasa. Alta carbonatação limpa o paladar entre as mordidas."
+                  </p>
+                </div>
+                <div class="space-y-2 mb-3">
+                  <h4 class="text-gray-700 font-semibold text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-circle-info text-yellow-500"></i>
+                    Dica de Serviço
+                  </h4>
+                  <div class="grid grid-cols-2 gap-2">
+                    <div class="service-tip">
+                      <i class="fa-solid fa-temperature-low text-blue-500 text-sm flex-shrink-0"></i>
+                      <div>
+                        <p class="text-gray-500 text-xs">Temperatura</p>
+                        <p class="text-gray-800 font-semibold text-sm">4 – 6°C</p>
+                      </div>
+                    </div>
+                    <div class="service-tip">
+                      <i class="fa-solid fa-wine-glass text-purple-500 text-sm flex-shrink-0"></i>
+                      <div>
+                        <p class="text-gray-500 text-xs">Copo</p>
+                        <p class="text-gray-800 font-semibold text-sm">Americano</p>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-gray-400 text-xs pl-1">Também aceita: copo tulipa</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Beer Rec 3 — Sol -->
+          <div class="beer-rec-card mb-3" id="card3" onclick="selectCard('card3')">
+            <div class="p-4">
+              <div class="flex items-start gap-3">
+                <div class="beer-icon-circle" style="background: linear-gradient(135deg, #fef9c3, #fde047);">
+                  🍺
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-1">
+                    <div class="rank-badge rank-3">3</div>
+                    <h3 class="text-gray-800 font-bold text-base">Sol</h3>
+                    <span class="ml-auto text-yellow-600 text-xs font-semibold bg-yellow-50 px-2 py-0.5 rounded-full">Afinidade moderada</span>
+                  </div>
+                  <p class="text-gray-500 text-xs mb-2">Lager leve · Tropical e refrescante</p>
+                  <div class="flex items-center gap-1.5">
+                    <span class="principle-badge" style="background:#eff6ff; color:#1e40af;">
+                      <i class="fa-solid fa-puzzle-piece text-xs"></i>
+                      Complementação
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Expanded content -->
+              <div class="beer-body-expanded mt-4">
+                <div class="bg-green-50 rounded-2xl p-4 border border-green-100 mb-3">
+                  <p class="text-green-900 text-sm leading-relaxed font-light">
+                    "Leveza e frescor da Sol <strong class="font-semibold">limpam o paladar</strong> entre as mordidas — ideal para o churrasco descontraído e informal."
+                  </p>
+                </div>
+                <div class="space-y-2 mb-3">
+                  <h4 class="text-gray-700 font-semibold text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-circle-info text-yellow-500"></i>
+                    Dica de Serviço
+                  </h4>
+                  <div class="grid grid-cols-2 gap-2">
+                    <div class="service-tip">
+                      <i class="fa-solid fa-temperature-low text-blue-500 text-sm flex-shrink-0"></i>
+                      <div>
+                        <p class="text-gray-500 text-xs">Temperatura</p>
+                        <p class="text-gray-800 font-semibold text-sm">0 – 2°C</p>
+                      </div>
+                    </div>
+                    <div class="service-tip">
+                      <i class="fa-solid fa-wine-glass text-purple-500 text-sm flex-shrink-0"></i>
+                      <div>
+                        <p class="text-gray-500 text-xs">Copo</p>
+                        <p class="text-gray-800 font-semibold text-sm">Long neck</p>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-gray-400 text-xs pl-1">Também aceita: copo americano</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Pairing Principles info -->
+        <div class="px-4 pb-4">
+          <div class="bg-white rounded-2xl border border-gray-100 p-4">
+            <h4 class="text-gray-700 font-semibold text-sm mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-graduation-cap text-yellow-500"></i>
+              Princípios de Harmonização
+            </h4>
+            <div class="space-y-2">
+              <div class="flex items-start gap-3">
+                <span class="principle-badge flex-shrink-0 mt-0.5" style="background:#dcfce7; color:#15803d;">Contraste</span>
+                <p class="text-gray-500 text-xs leading-relaxed">Elementos opostos se equilibram — como o amargor cortando a gordura</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="principle-badge flex-shrink-0 mt-0.5" style="background:#eff6ff; color:#1e40af;">Complementação</span>
+                <p class="text-gray-500 text-xs leading-relaxed">A cerveja adiciona sensações que completam a experiência do prato</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="principle-badge flex-shrink-0 mt-0.5" style="background:#fef3c7; color:#92400e;">Semelhança</span>
+                <p class="text-gray-500 text-xs leading-relaxed">Elementos parecidos se reforçam mutuamente</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTAs -->
+        <div class="px-4 pb-4 space-y-3">
+          <a href="#" onclick="shareWhatsApp(); return false;" class="btn-whatsapp">
+            <i class="fab fa-whatsapp text-lg"></i>
+            Compartilhar no WhatsApp
+          </a>
+          <button class="btn-more" onclick="openMoreCombinations()">
+            <i class="fa-solid fa-wine-glass text-base"></i>
+            Ver Mais Combinações
+          </button>
+          <a href="03-categoria.html" class="flex items-center justify-center gap-2 text-gray-500 text-sm py-2 no-underline hover:text-gray-700 transition-colors">
+            <i class="fa-solid fa-arrow-left text-xs"></i>
+            Escolher outro prato
+          </a>
+        </div>
+
+        <!-- Footer disclaimer -->
+        <div class="px-4 py-4 text-center border-t border-gray-200">
+          <p class="text-gray-400 text-xs font-medium tracking-wide">
+            <i class="fa-solid fa-circle-info mr-1.5" style="color: #C8960C;"></i>
+            Beba com Moderação. Venda Proibida para Menores de 18 Anos.
+          </p>
+        </div>
+
+      </div><!-- end scroll area -->
+
+      <!-- Bottom Nav -->
+      <div class="bottom-nav px-2">
+        <a href="02-home.html" class="nav-item">
+          <i class="fa-solid fa-house text-lg mb-1"></i>
+          <span class="text-xs">Início</span>
+        </a>
+        <a href="03-categoria.html" class="nav-item active">
+          <i class="fa-solid fa-utensils text-lg mb-1"></i>
+          <span class="text-xs font-medium">Pratos</span>
+        </a>
+        <a href="05-marcas.html" class="nav-item">
+          <i class="fa-solid fa-award text-lg mb-1"></i>
+          <span class="text-xs">Marcas</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- More Combinations Modal / Bottom Sheet -->
+  <div class="modal-overlay" id="moreModal" onclick="closeModal(event)">
+    <div class="modal-sheet" id="modalSheet">
+      <div class="modal-handle"></div>
+      <div class="px-5 pt-4 pb-2">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-gray-800 font-bold text-base">Mais Combinações</h3>
+            <p class="text-gray-500 text-xs">Outros pratos que combinam com Amstel</p>
+          </div>
+          <button onclick="document.getElementById('moreModal').classList.remove('open')" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+            <i class="fa-solid fa-xmark text-gray-500 text-sm"></i>
+          </button>
+        </div>
+
+        <div class="space-y-2 pb-6">
+          <a href="04-prato.html" class="flex items-center gap-3 bg-gray-50 rounded-2xl p-3 no-underline hover:bg-green-50 transition-colors border border-transparent hover:border-green-200">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#fde8d8;">🍔</div>
+            <div class="flex-1">
+              <p class="text-gray-800 font-medium text-sm">Hambúrguer Artesanal</p>
+              <p class="text-gray-500 text-xs">Carnes · Alta afinidade</p>
+            </div>
+            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+          </a>
+          <a href="04-prato.html" class="flex items-center gap-3 bg-gray-50 rounded-2xl p-3 no-underline hover:bg-green-50 transition-colors border border-transparent hover:border-green-200">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#fef3c7;">🍝</div>
+            <div class="flex-1">
+              <p class="text-gray-800 font-medium text-sm">Macarrão Bolonhesa</p>
+              <p class="text-gray-500 text-xs">Massas · Boa afinidade</p>
+            </div>
+            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+          </a>
+          <a href="04-prato.html" class="flex items-center gap-3 bg-gray-50 rounded-2xl p-3 no-underline hover:bg-green-50 transition-colors border border-transparent hover:border-green-200">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl flex-shrink-0" style="background:#fde8d8;">🍖</div>
+            <div class="flex-1">
+              <p class="text-gray-800 font-medium text-sm">Costela BBQ</p>
+              <p class="text-gray-500 text-xs">Carnes · Boa afinidade</p>
+            </div>
+            <i class="fa-solid fa-chevron-right text-gray-300 text-sm"></i>
+          </a>
+          <a href="05-marcas.html" class="flex items-center gap-3 bg-green-50 rounded-2xl p-3 no-underline border border-green-100 hover:bg-green-100 transition-colors">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: linear-gradient(135deg, #fef3c7, #fde68a);">🍺</div>
+            <div class="flex-1">
+              <p class="text-green-800 font-medium text-sm">Ver perfil completo da Amstel</p>
+              <p class="text-green-600 text-xs">Portfólio Heineken</p>
+            </div>
+            <i class="fa-solid fa-chevron-right text-green-400 text-sm"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav hint -->
+  <div class="fixed bottom-4 left-0 right-0 flex justify-center z-40">
+    <a href="index.html" class="bg-gray-900 border border-gray-700 text-gray-400 text-xs px-4 py-2 rounded-full hover:text-white transition-colors">
+      <i class="fa-solid fa-grid-2 mr-1.5"></i> Ver todas as telas
+    </a>
+  </div>
+
+  <script>
+    function selectCard(cardId) {
+      document.querySelectorAll('.beer-rec-card').forEach(c => c.classList.remove('selected'));
+      document.getElementById(cardId).classList.add('selected');
+    }
+
+    function openMoreCombinations() {
+      document.getElementById('moreModal').classList.add('open');
+    }
+
+    function closeModal(event) {
+      if (event.target === document.getElementById('moreModal')) {
+        document.getElementById('moreModal').classList.remove('open');
+      }
+    }
+
+    function shareWhatsApp() {
+      const text = encodeURIComponent(
+        'Olha que combinação perfeita que o Sommelière de Cerveja recomendou! 🍺\n\n' +
+        '*Picanha na Brasa* + *Amstel*\n\n' +
+        '"A maltosidade da Amstel equilibra a gordura da picanha, criando uma harmonização por contraste refrescante."\n\n' +
+        '🌡️ Temperatura: 2-4°C | 🍺 Copo: Caldereta\n\n' +
+        'Descubra a harmonização certa para o seu prato 👇\n' +
+        'https://sommeliere.heineken.com.br'
+      );
+      // In real implementation would open wa.me link
+      // For mockup, show a visual feedback
+      const btn = event.currentTarget || document.querySelector('.btn-whatsapp');
+      const originalText = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.innerHTML = '<i class="fa-solid fa-check text-lg"></i> Mensagem preparada!';
+        btn.style.background = '#128c7e';
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.style.background = '#25d366';
+        }, 2500);
+      }
+    }
+  </script>
+
+</body>
+</html>

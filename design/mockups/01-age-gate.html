@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Age Gate — Sommelière de Cerveja</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      background: #0a1a0f;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    .phone-frame {
+      width: 430px;
+      min-height: 932px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .app-screen {
+      width: 430px;
+      min-height: 932px;
+      background: #0d1f13;
+      position: relative;
+      overflow: hidden;
+    }
+    .bg-heineken-green { background-color: #006633; }
+    .text-heineken-amber { color: #C8960C; }
+    .bg-heineken-cream { background-color: #F8F4EE; }
+    .text-heineken-dark { color: #1A1A1A; }
+    .btn-primary {
+      background: #006633;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 16px 32px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s ease;
+      letter-spacing: 0.02em;
+    }
+    .btn-primary:hover { background: #009933; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,102,51,0.5); }
+    .btn-secondary {
+      background: transparent;
+      color: #C8960C;
+      border: 1.5px solid #C8960C;
+      border-radius: 50px;
+      padding: 14px 32px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s ease;
+    }
+    .btn-secondary:hover { background: rgba(200,150,12,0.1); }
+    .date-input {
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      color: white;
+      font-size: 22px;
+      font-weight: 300;
+      text-align: center;
+      letter-spacing: 0.15em;
+      padding: 14px 16px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .date-input:focus { border-color: #C8960C; }
+    .date-input::placeholder { color: rgba(255,255,255,0.3); font-size: 18px; letter-spacing: 0.05em; }
+    .hop-circle {
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(0,153,51,0.15), rgba(0,102,51,0.05));
+      border: 1px solid rgba(0,153,51,0.1);
+    }
+    .grain-texture {
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(200,150,12,0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(0,102,51,0.08) 0%, transparent 50%);
+    }
+    .error-state { display: none; }
+    .error-state.visible { display: block; }
+    .blocked-state { display: none; }
+    .form-state { display: block; }
+
+    /* Decorative bubbles */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,150,12,0.12), transparent);
+      border: 1px solid rgba(200,150,12,0.06);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mockup Banner -->
+  <div class="w-full bg-yellow-400 text-yellow-900 text-center text-xs font-bold py-1.5 tracking-widest uppercase fixed top-0 left-0 right-0 z-50">
+    MOCKUP — SOMMELIÈRE DE CERVEJA · F01 Age Gate
+  </div>
+
+  <div class="flex justify-center pt-8 pb-8">
+    <div class="phone-frame">
+      <!-- App Screen -->
+      <div class="app-screen grain-texture relative flex flex-col">
+
+        <!-- Decorative circles -->
+        <div class="bubble" style="width:300px;height:300px;top:-100px;right:-100px;"></div>
+        <div class="bubble" style="width:200px;height:200px;bottom:100px;left:-80px;background:radial-gradient(circle, rgba(0,102,51,0.1), transparent);border-color:rgba(0,102,51,0.05);"></div>
+
+        <!-- Top brand area -->
+        <div class="flex-1 flex flex-col items-center justify-center px-8 pt-16 pb-8">
+
+          <!-- Heineken Star / Logo Area -->
+          <div class="mb-8 relative">
+            <div class="w-24 h-24 rounded-full flex items-center justify-center" style="background: radial-gradient(circle at 30% 30%, #009933, #003d1f); box-shadow: 0 0 40px rgba(0,153,51,0.3), inset 0 1px 1px rgba(255,255,255,0.1);">
+              <i class="fa-solid fa-star text-white text-4xl" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));"></i>
+            </div>
+            <!-- Glow ring -->
+            <div class="absolute inset-0 rounded-full" style="box-shadow: 0 0 0 8px rgba(0,153,51,0.1), 0 0 0 16px rgba(0,153,51,0.05);"></div>
+          </div>
+
+          <!-- Brand name -->
+          <div class="text-center mb-2">
+            <h1 class="text-white text-3xl font-light tracking-[0.12em] uppercase mb-1">Sommelière</h1>
+            <p class="text-heineken-amber text-base tracking-[0.25em] uppercase font-light">de Cerveja</p>
+          </div>
+
+          <div class="w-16 h-px my-6" style="background: linear-gradient(90deg, transparent, #C8960C, transparent);"></div>
+
+          <!-- Welcome text -->
+          <p class="text-gray-300 text-center text-sm leading-relaxed font-light mb-10" style="max-width: 300px;">
+            Seu guia pessoal de harmonização entre pratos e as melhores cervejas do Brasil.
+          </p>
+
+          <!-- Age Verification Form -->
+          <div class="form-state w-full" id="formState">
+            <div class="bg-white bg-opacity-5 border border-white border-opacity-10 rounded-2xl p-6 mb-6 backdrop-blur-sm">
+
+              <div class="flex items-center gap-3 mb-5">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(200,150,12,0.15); border: 1px solid rgba(200,150,12,0.3);">
+                  <i class="fa-solid fa-id-card text-heineken-amber text-sm"></i>
+                </div>
+                <div>
+                  <p class="text-white text-sm font-medium">Verificação de Idade</p>
+                  <p class="text-gray-400 text-xs">Informe sua data de nascimento</p>
+                </div>
+              </div>
+
+              <input
+                type="text"
+                class="date-input mb-4"
+                id="birthDateInput"
+                placeholder="DD / MM / AAAA"
+                maxlength="10"
+                autocomplete="off"
+              />
+
+              <!-- Error message -->
+              <div class="error-state mb-4" id="errorMsg">
+                <div class="flex items-center gap-2 bg-red-900 bg-opacity-40 border border-red-700 rounded-xl px-4 py-3">
+                  <i class="fa-solid fa-triangle-exclamation text-red-400 text-sm"></i>
+                  <p class="text-red-300 text-sm" id="errorText">Data inválida. Verifique e tente novamente.</p>
+                </div>
+              </div>
+
+              <button class="btn-primary" onclick="validateAge()">
+                Entrar <i class="fa-solid fa-arrow-right ml-2"></i>
+              </button>
+            </div>
+
+            <p class="text-gray-500 text-xs text-center leading-relaxed px-4">
+              Ao entrar, você confirma ter 18 anos ou mais e concordar com os
+              <span class="text-heineken-amber underline cursor-pointer">Termos de Uso</span>.
+            </p>
+          </div>
+
+          <!-- Blocked State -->
+          <div id="blockedState" class="blocked-state w-full">
+            <div class="bg-red-900 bg-opacity-30 border border-red-700 border-opacity-50 rounded-2xl p-6 text-center">
+              <i class="fa-solid fa-ban text-red-400 text-3xl mb-4"></i>
+              <h3 class="text-red-300 font-semibold text-lg mb-2">Acesso Restrito</h3>
+              <p class="text-red-400 text-sm leading-relaxed mb-6">
+                Você precisa ter 18 anos ou mais para acessar este conteúdo. O consumo de álcool é proibido para menores de idade.
+              </p>
+              <button class="btn-secondary" onclick="resetForm()" style="color: #f87171; border-color: #f87171;">
+                <i class="fa-solid fa-rotate-left mr-2"></i> Corrigir data
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footer disclaimer -->
+        <div class="px-6 py-5 text-center border-t" style="border-color: rgba(255,255,255,0.06);">
+          <div class="flex items-center justify-center gap-2 mb-2">
+            <i class="fa-solid fa-circle-info text-heineken-amber text-xs opacity-70"></i>
+            <p class="text-gray-500 text-xs font-medium tracking-wide">BEBA COM MODERAÇÃO</p>
+          </div>
+          <p class="text-gray-600 text-xs leading-relaxed">
+            Venda e consumo proibidos para menores de 18 anos.
+          </p>
+          <p class="text-gray-700 text-xs mt-2">
+            © Grupo Heineken Brasil · Conteúdo para maiores de 18 anos
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav hint -->
+  <div class="fixed bottom-4 left-0 right-0 flex justify-center z-40">
+    <a href="index.html" class="bg-gray-900 border border-gray-700 text-gray-400 text-xs px-4 py-2 rounded-full hover:text-white transition-colors">
+      <i class="fa-solid fa-grid-2 mr-1.5"></i> Ver todas as telas
+    </a>
+  </div>
+
+  <script>
+    // Auto-format date input
+    const input = document.getElementById('birthDateInput');
+    input.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length >= 2) value = value.substring(0,2) + ' / ' + value.substring(2);
+      if (value.length >= 9) value = value.substring(0,9) + value.substring(9, 12);
+      if (value.replace(/\D/g,'').length >= 4) {
+        const digits = value.replace(/\D/g,'');
+        value = digits.substring(0,2) + ' / ' + digits.substring(2,4) + ' / ' + digits.substring(4,8);
+      }
+      e.target.value = value;
+      hideError();
+    });
+
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') validateAge();
+    });
+
+    function hideError() {
+      document.getElementById('errorMsg').classList.remove('visible');
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('errorMsg');
+      document.getElementById('errorText').textContent = msg;
+      el.classList.add('visible');
+    }
+
+    function validateAge() {
+      const raw = input.value.replace(/\D/g, '');
+      if (raw.length < 8) {
+        showError('Por favor, informe uma data de nascimento completa.');
+        return;
+      }
+
+      const day = parseInt(raw.substring(0, 2));
+      const month = parseInt(raw.substring(2, 4));
+      const year = parseInt(raw.substring(4, 8));
+
+      if (month < 1 || month > 12 || day < 1 || day > 31 || year < 1900) {
+        showError('Data inválida. Verifique e tente novamente.');
+        return;
+      }
+
+      const birthDate = new Date(year, month - 1, day);
+      const today = new Date(2026, 2, 12); // Mock date: 12/03/2026
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+
+      if (age < 18) {
+        // Show blocked state
+        document.getElementById('formState').style.display = 'none';
+        document.getElementById('blockedState').style.display = 'block';
+      } else {
+        // Save to localStorage and navigate
+        localStorage.setItem('sommeliere_age_verified', 'true');
+        localStorage.setItem('sommeliere_verified_at', new Date().toISOString());
+        window.location.href = '02-home.html';
+      }
+    }
+
+    function resetForm() {
+      document.getElementById('formState').style.display = 'block';
+      document.getElementById('blockedState').style.display = 'none';
+      input.value = '';
+      hideError();
+    }
+
+    // Check if already verified
+    if (localStorage.getItem('sommeliere_age_verified') === 'true') {
+      const skip = document.createElement('div');
+      skip.className = 'fixed top-8 right-4 z-50';
+      skip.innerHTML = '<a href="02-home.html" class="bg-green-800 text-green-200 text-xs px-3 py-1.5 rounded-full border border-green-700">Já verificado — ir para Home <i class="fa-solid fa-arrow-right ml-1"></i></a>';
+      document.body.appendChild(skip);
+    }
+  </script>
+
+</body>
+</html>
