@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfólio de Marcas — Sommelière de Cerveja</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      background: #0a1a0f;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    .app-screen {
+      width: 430px;
+      background: #F8F4EE;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .header-bg {
+      background: linear-gradient(160deg, #0c1f33 0%, #1e3a5f 60%, #1a3554 100%);
+    }
+
+    /* Brand Card */
+    .brand-card {
+      background: white;
+      border-radius: 20px;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+      overflow: hidden;
+    }
+    .brand-card-header {
+      cursor: pointer;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-card:hover:not(.expanded) { border-color: #e5e7eb; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .brand-card.expanded { border-color: transparent; box-shadow: 0 6px 24px rgba(0,0,0,0.1); }
+
+    /* Brand logo circle */
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: 0.03em;
+      flex-shrink: 0;
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    /* Color definitions per brand */
+    .logo-heineken { background: linear-gradient(135deg, #006633, #009933); }
+    .logo-amstel { background: linear-gradient(135deg, #c8001e, #e00022); }
+    .logo-eisenbahn-pilsen { background: linear-gradient(135deg, #C8960C, #e0a80e); }
+    .logo-eisenbahn-weizen { background: linear-gradient(135deg, #9b4dca, #7c3aab); }
+    .logo-eisenbahn-ipa { background: linear-gradient(135deg, #c85c00, #e06800); }
+    .logo-badenbaden { background: linear-gradient(135deg, #1e3a5f, #2d5490); }
+    .logo-sol { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+    .logo-devassa { background: linear-gradient(135deg, #1a1a1a, #3d1a00); }
+
+    /* Expanded body */
+    .brand-body { display: none; }
+    .brand-card.expanded .brand-body { display: block; }
+
+    /* Style tag */
+    .style-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .food-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 12px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 500;
+      background: #f3f4f6;
+      color: #374151;
+      margin: 2px;
+    }
+    .food-tag:hover { background: #e5e7eb; }
+
+    /* Sensory profile bar */
+    .sensory-bar {
+      height: 6px;
+      border-radius: 3px;
+      background: #e5e7eb;
+      overflow: hidden;
+    }
+    .sensory-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+
+    /* Bottom nav */
+    .bottom-nav {
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+    }
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+      cursor: pointer;
+      transition: color 0.15s;
+      text-decoration: none;
+    }
+    .nav-item.active { color: #006633; }
+    .nav-item:not(.active) { color: #9ca3af; }
+
+    /* Filter tabs */
+    .style-tab {
+      padding: 7px 14px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      border: 1.5px solid transparent;
+      transition: all 0.15s;
+    }
+    .style-tab.active { background: #1e3a5f; color: white; border-color: #1e3a5f; }
+    .style-tab:not(.active) { background: white; color: #4b5563; border-color: #e5e7eb; }
+    .style-tab:not(.active):hover { border-color: #1e3a5f; color: #1e3a5f; }
+  </style>
+</head>
+<body>
+
+  <!-- Mockup Banner -->
+  <div class="w-full bg-yellow-400 text-yellow-900 text-center text-xs font-bold py-1.5 tracking-widest uppercase fixed top-0 left-0 right-0 z-50">
+    MOCKUP — SOMMELIÈRE DE CERVEJA · F07 Portfólio de Marcas
+  </div>
+
+  <div class="flex justify-center pt-8 pb-4">
+    <div class="app-screen">
+
+      <!-- Header -->
+      <div class="header-bg px-5 pt-8 pb-8">
+        <div class="flex items-center justify-between mb-5">
+          <a href="02-home.html" class="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(255,255,255,0.1);">
+            <i class="fa-solid fa-arrow-left text-white text-sm"></i>
+          </a>
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded-full flex items-center justify-center" style="background: rgba(255,255,255,0.1);">
+              <i class="fa-solid fa-star text-yellow-300 text-xs"></i>
+            </div>
+            <span class="text-white text-sm font-light">Grupo Heineken</span>
+          </div>
+        </div>
+
+        <p class="text-blue-300 text-xs tracking-widest uppercase font-medium mb-1">Portfólio</p>
+        <h1 class="text-white text-2xl font-bold mb-1">Nossas Marcas</h1>
+        <p class="text-blue-200 text-sm font-light">8 cervejas. Infinitas harmonizações.</p>
+
+        <!-- Stats row -->
+        <div class="flex gap-5 mt-4">
+          <div>
+            <p class="text-blue-300 text-xl font-bold">8</p>
+            <p class="text-blue-400 text-xs">marcas</p>
+          </div>
+          <div class="w-px bg-blue-700 opacity-50"></div>
+          <div>
+            <p class="text-blue-300 text-xl font-bold">3</p>
+            <p class="text-blue-400 text-xs">estilos</p>
+          </div>
+          <div class="w-px bg-blue-700 opacity-50"></div>
+          <div>
+            <p class="text-blue-300 text-xl font-bold">50+</p>
+            <p class="text-blue-400 text-xs">pratos mapeados</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="px-4 py-3 bg-white border-b border-gray-100">
+        <div class="flex gap-2 overflow-x-auto pb-1" style="scrollbar-width: none;">
+          <div class="style-tab active" onclick="setStyleTab(this)">Todas</div>
+          <div class="style-tab" onclick="setStyleTab(this)">Lager</div>
+          <div class="style-tab" onclick="setStyleTab(this)">Artesanal</div>
+          <div class="style-tab" onclick="setStyleTab(this)">Premium</div>
+          <div class="style-tab" onclick="setStyleTab(this)">Trigo</div>
+        </div>
+      </div>
+
+      <!-- Brand list -->
+      <div class="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+
+        <!-- 1. Heineken -->
+        <div class="brand-card expanded" id="brand-heineken">
+          <div class="brand-card-header" onclick="toggleBrand('brand-heineken')">
+            <div class="brand-logo logo-heineken text-center">⭐<br>HEIN</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between">
+                <h3 class="text-gray-800 font-bold text-base">Heineken®</h3>
+                <i class="fa-solid fa-chevron-up text-gray-400 text-xs transition-transform" id="icon-heineken"></i>
+              </div>
+              <p class="text-gray-500 text-xs">Lager Premium · Holanda</p>
+              <div class="flex gap-1.5 mt-1.5">
+                <span class="style-pill" style="background:#dcfce7; color:#15803d;">Lager</span>
+                <span class="style-pill" style="background:#fef3c7; color:#92400e;">Premium</span>
+              </div>
+            </div>
+          </div>
+          <div class="brand-body px-4 pb-4">
+            <div class="w-full h-px bg-gray-100 mb-4"></div>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4 font-light">
+              A cerveja mais icônica do mundo. Lager premium de caráter refrescante com aroma floral e frutado, final limpo e levemente amargo.
+            </p>
+            <!-- Sensory profile -->
+            <div class="mb-4">
+              <h4 class="text-gray-700 font-semibold text-xs mb-3 uppercase tracking-wider">Perfil Sensorial</h4>
+              <div class="space-y-2">
+                <div class="flex items-center gap-3">
+                  <span class="text-gray-500 text-xs w-16 flex-shrink-0">Amargor</span>
+                  <div class="flex-1 sensory-bar"><div class="sensory-fill bg-green-500" style="width:30%"></div></div>
+                  <span class="text-gray-400 text-xs w-6">3/10</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-gray-500 text-xs w-16 flex-shrink-0">Dulçor</span>
+                  <div class="flex-1 sensory-bar"><div class="sensory-fill bg-yellow-400" style="width:25%"></div></div>
+                  <span class="text-gray-400 text-xs w-6">2/10</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-gray-500 text-xs w-16 flex-shrink-0">Corpo</span>
+                  <div class="flex-1 sensory-bar"><div class="sensory-fill bg-blue-400" style="width:40%"></div></div>
+                  <span class="text-gray-400 text-xs w-6">4/10</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-gray-500 text-xs w-16 flex-shrink-0">Carbonat.</span>
+                  <div class="flex-1 sensory-bar"><div class="sensory-fill bg-purple-400" style="width:65%"></div></div>
+                  <span class="text-gray-400 text-xs w-6">6/10</span>
+                </div>
+              </div>
+            </div>
+            <!-- Food pairings -->
+            <h4 class="text-gray-700 font-semibold text-xs mb-2 uppercase tracking-wider">Combina com</h4>
+            <div class="flex flex-wrap">
+              <span class="food-tag">🦐 Frutos do Mar</span>
+              <span class="food-tag">🍱 Sushi</span>
+              <span class="food-tag">🥗 Saladas</span>
+              <span class="food-tag">🧀 Queijos brancos</span>
+              <span class="food-tag">🥟 Petiscos leves</span>
+            </div>
+            <a href="03-categoria.html" class="mt-4 flex items-center justify-center gap-2 bg-green-50 text-green-700 text-sm font-semibold py-3 rounded-xl border border-green-200 no-underline hover:bg-green-100 transition-colors">
+              <i class="fa-solid fa-utensils text-sm"></i>
+              Ver pratos que combinam
+            </a>
+          </div>
+        </div>
+
+        <!-- 2. Amstel -->
+        <div class="brand-card" id="brand-amstel">
+          <div class="brand-card-header" onclick="toggleBrand('brand-amstel')">
+            <div class="brand-logo logo-amstel">AMSTEL</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between">
+                <h3 class="text-gray-800 font-bold text-base">Amstel</h3>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs transition-transform" id="icon-amstel"></i>
+              </div>
+              <p class="text-gray-500 text-xs">Puro Malte · Holanda</p>
+              <div class="flex gap-1.5 mt-1.5">
+                <span class="style-pill" style="background:#fee2e2; color:#b91c1c;">Puro Malte</span>
+                <span class="style-pill" style="background:#f3f4f6; color:#374151;">Encorpada</span>
+              </div>
+            </div>
+          </div>
+          <div class="brand-body px-4 pb-4">
+            <div class="w-full h-px bg-gray-100 mb-4"></div>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4 font-light">
+              Feita com 100% malte, a Amstel tem sabor equilibrado, encorpado e fresco. Ideal para momentos de celebração e pratos com mais intensidade.
+            </p>
+            <div class="mb-4">
+              <h4 class="text-gray-700 font-semibold text-xs mb-3 uppercase tracking-wider">Perfil Sensorial</h4>
+              <div class="space-y-2">
+                <div class="flex items-center gap-3">
+                  <span class="text-gray-500 text-xs w-16 flex-shrink-0">Amargor</span>
+                  <div class="flex-1 sensory-bar"><div class="sensory-fill bg-green-500" style="width:40%"></div></div>
+                  <span class="text-gray-400 text-xs w-6">4/10</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-gray-500 text-xs w-16 flex-shrink-0">Dulçor</span>
+                  <div class="flex-1 sensory-bar"><div class="sensory-fill bg-yellow-400" style="width:50%"></div></div>
+                  <span class="text-gray-400 text-xs w-6">5/10</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-gray-500 text-xs w-16 flex-shrink-0">Corpo</span>
+                  <div class="flex-1 sensory-bar"><div class="sensory-fill bg-blue-400" style="width:60%"></div></div>
+                  <span class="text-gray-400 text-xs w-6">6/10</span>
+                </div>
+              </div>
+            </div>
+            <h4 class="text-gray-700 font-semibold text-xs mb-2 uppercase tracking-wider">Combina com</h4>
+            <div class="flex flex-wrap">
+              <span class="food-tag">🥩 Carnes grelhadas</span>
+              <span class="food-tag">🍔 Hambúrguer</span>
+              <span class="food-tag">🍝 Massas</span>
+              <span class="food-tag">🧀 Frios</span>
+            </div>
+            <a href="04-prato.html" class="mt-4 flex items-center justify-center gap-2 bg-red-50 text-red-700 text-sm font-semibold py-3 rounded-xl border border-red-200 no-underline hover:bg-red-100 transition-colors">
+              <i class="fa-solid fa-star text-sm"></i>
+              Ver harmonização com Picanha
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. Eisenbahn Pilsen -->
+        <div class="brand-card" id="brand-eisen-pilsen">
+          <div class="brand-card-header" onclick="toggleBrand('brand-eisen-pilsen')">
+            <div class="brand-logo logo-eisenbahn-pilsen text-xs leading-tight">EISEN<br>BAHN</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between">
+                <h3 class="text-gray-800 font-bold text-base">Eisenbahn Pilsen</h3>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs" id="icon-eisen-pilsen"></i>
+              </div>
+              <p class="text-gray-500 text-xs">Pilsen Artesanal · Brasil</p>
+              <div class="flex gap-1.5 mt-1.5">
+                <span class="style-pill" style="background:#fef3c7; color:#92400e;">Artesanal</span>
+                <span class="style-pill" style="background:#f3f4f6; color:#374151;">Pilsen</span>
+              </div>
+            </div>
+          </div>
+          <div class="brand-body px-4 pb-4">
+            <div class="w-full h-px bg-gray-100 mb-4"></div>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4 font-light">
+              Pilsen artesanal com amargor médio, leveza com complexidade. Produzida seguindo os princípios da tradição cervejeira alemã em Blumenau.
+            </p>
+            <h4 class="text-gray-700 font-semibold text-xs mb-2 uppercase tracking-wider">Combina com</h4>
+            <div class="flex flex-wrap">
+              <span class="food-tag">🥟 Pastéis</span>
+              <span class="food-tag">🍗 Frango</span>
+              <span class="food-tag">🥪 Boteco</span>
+              <span class="food-tag">🧀 Queijos suaves</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Eisenbahn Weizenbier -->
+        <div class="brand-card" id="brand-eisen-weizen">
+          <div class="brand-card-header" onclick="toggleBrand('brand-eisen-weizen')">
+            <div class="brand-logo logo-eisenbahn-weizen text-xs leading-tight">WEIZEN<br>BIER</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between">
+                <h3 class="text-gray-800 font-bold text-base">Eisenbahn Weizenbier</h3>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs" id="icon-eisen-weizen"></i>
+              </div>
+              <p class="text-gray-500 text-xs">Trigo · Notas frutadas e condimentadas</p>
+              <div class="flex gap-1.5 mt-1.5">
+                <span class="style-pill" style="background:#ede9fe; color:#5b21b6;">Trigo</span>
+                <span class="style-pill" style="background:#f3f4f6; color:#374151;">Artesanal</span>
+              </div>
+            </div>
+          </div>
+          <div class="brand-body px-4 pb-4">
+            <div class="w-full h-px bg-gray-100 mb-4"></div>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4 font-light">
+              Cerveja de trigo com notas frutadas de banana e baunilha, acidez suave e textura cremosa. Versátil e elegante.
+            </p>
+            <h4 class="text-gray-700 font-semibold text-xs mb-2 uppercase tracking-wider">Combina com</h4>
+            <div class="flex flex-wrap">
+              <span class="food-tag">🍜 Comida oriental</span>
+              <span class="food-tag">🌶️ Pratos condimentados</span>
+              <span class="food-tag">🥗 Saladas</span>
+              <span class="food-tag">🧀 Queijo de cabra</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Eisenbahn IPA -->
+        <div class="brand-card" id="brand-eisen-ipa">
+          <div class="brand-card-header" onclick="toggleBrand('brand-eisen-ipa')">
+            <div class="brand-logo logo-eisenbahn-ipa text-xs">IPA</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between">
+                <h3 class="text-gray-800 font-bold text-base">Eisenbahn IPA</h3>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs" id="icon-eisen-ipa"></i>
+              </div>
+              <p class="text-gray-500 text-xs">Lupulada · Amargor elevado</p>
+              <div class="flex gap-1.5 mt-1.5">
+                <span class="style-pill" style="background:#ffedd5; color:#c2410c;">IPA</span>
+                <span class="style-pill" style="background:#f3f4f6; color:#374151;">Artesanal</span>
+              </div>
+            </div>
+          </div>
+          <div class="brand-body px-4 pb-4">
+            <div class="w-full h-px bg-gray-100 mb-4"></div>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4 font-light">
+              Intensa presença de lúpulo, amargor elevado e alta carbonatação. Corta a gordura dos pratos e realça sabores defumados.
+            </p>
+            <h4 class="text-gray-700 font-semibold text-xs mb-2 uppercase tracking-wider">Combina com</h4>
+            <div class="flex flex-wrap">
+              <span class="food-tag">🥩 Carnes assadas</span>
+              <span class="food-tag">🍕 Pizza</span>
+              <span class="food-tag">🍔 Hambúrguer</span>
+              <span class="food-tag">🌶️ Molhos fortes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Baden Baden -->
+        <div class="brand-card" id="brand-badenbaden">
+          <div class="brand-card-header" onclick="toggleBrand('brand-badenbaden')">
+            <div class="brand-logo logo-badenbaden text-xs leading-tight">BADEN<br>BADEN</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between">
+                <h3 class="text-gray-800 font-bold text-base">Baden Baden</h3>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs" id="icon-badenbaden"></i>
+              </div>
+              <p class="text-gray-500 text-xs">Premium Gourmet · Brasil</p>
+              <div class="flex gap-1.5 mt-1.5">
+                <span class="style-pill" style="background:#dbeafe; color:#1e40af;">Premium</span>
+                <span class="style-pill" style="background:#f3f4f6; color:#374151;">Gourmet</span>
+              </div>
+            </div>
+          </div>
+          <div class="brand-body px-4 pb-4">
+            <div class="w-full h-px bg-gray-100 mb-4"></div>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4 font-light">
+              Linha gourmet com posicionamento gastronômico premium. Ideal para harmonizações elaboradas com culinária nacional e internacional.
+            </p>
+            <h4 class="text-gray-700 font-semibold text-xs mb-2 uppercase tracking-wider">Combina com</h4>
+            <div class="flex flex-wrap">
+              <span class="food-tag">🥩 Filé Mignon</span>
+              <span class="food-tag">🐟 Peixes nobres</span>
+              <span class="food-tag">🧀 Queijos especiais</span>
+              <span class="food-tag">🍮 Sobremesas</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Sol -->
+        <div class="brand-card" id="brand-sol">
+          <div class="brand-card-header" onclick="toggleBrand('brand-sol')">
+            <div class="brand-logo logo-sol">☀️<br><span style="font-size:9px;">SOL</span></div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between">
+                <h3 class="text-gray-800 font-bold text-base">Sol</h3>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs" id="icon-sol"></i>
+              </div>
+              <p class="text-gray-500 text-xs">Lager Leve · México</p>
+              <div class="flex gap-1.5 mt-1.5">
+                <span class="style-pill" style="background:#fef9c3; color:#713f12;">Lager</span>
+                <span class="style-pill" style="background:#f3f4f6; color:#374151;">Tropical</span>
+              </div>
+            </div>
+          </div>
+          <div class="brand-body px-4 pb-4">
+            <div class="w-full h-px bg-gray-100 mb-4"></div>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4 font-light">
+              Lager leve e tropical, extremamente refrescante. Perfeita para o calor brasileiro e momentos descontraídos ao ar livre.
+            </p>
+            <h4 class="text-gray-700 font-semibold text-xs mb-2 uppercase tracking-wider">Combina com</h4>
+            <div class="flex flex-wrap">
+              <span class="food-tag">🔥 Churrasco</span>
+              <span class="food-tag">🦐 Frutos do Mar</span>
+              <span class="food-tag">🍟 Petiscos</span>
+              <span class="food-tag">🍗 Frango grelhado</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Devassa -->
+        <div class="brand-card" id="brand-devassa">
+          <div class="brand-card-header" onclick="toggleBrand('brand-devassa')">
+            <div class="brand-logo logo-devassa text-xs">DEV</div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between">
+                <h3 class="text-gray-800 font-bold text-base">Devassa</h3>
+                <i class="fa-solid fa-chevron-down text-gray-400 text-xs" id="icon-devassa"></i>
+              </div>
+              <p class="text-gray-500 text-xs">Puro Malte · Brasil</p>
+              <div class="flex gap-1.5 mt-1.5">
+                <span class="style-pill" style="background:#f3f4f6; color:#374151;">Puro Malte</span>
+                <span class="style-pill" style="background:#fef3c7; color:#92400e;">Sabor Marcante</span>
+              </div>
+            </div>
+          </div>
+          <div class="brand-body px-4 pb-4">
+            <div class="w-full h-px bg-gray-100 mb-4"></div>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4 font-light">
+              Produzida com lei de pureza alemã, malte 100%, sabor marcante e encorpado. A parceira perfeita para os sabores intensos da cozinha brasileira.
+            </p>
+            <h4 class="text-gray-700 font-semibold text-xs mb-2 uppercase tracking-wider">Combina com</h4>
+            <div class="flex flex-wrap">
+              <span class="food-tag">🍛 Feijoada</span>
+              <span class="food-tag">🌶️ Pratos intensos</span>
+              <span class="food-tag">🥩 Carnes temperadas</span>
+              <span class="food-tag">🍖 Costela</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spacer -->
+        <div class="h-2"></div>
+
+      </div><!-- end brand list -->
+
+      <!-- Footer disclaimer -->
+      <div class="px-4 py-4 text-center border-t border-gray-200 bg-white">
+        <p class="text-gray-400 text-xs font-medium tracking-wide">
+          <i class="fa-solid fa-circle-info mr-1.5" style="color: #C8960C;"></i>
+          Beba com Moderação. Venda Proibida para Menores de 18 Anos.
+        </p>
+      </div>
+
+      <!-- Bottom Nav -->
+      <div class="bottom-nav px-2">
+        <a href="02-home.html" class="nav-item">
+          <i class="fa-solid fa-house text-lg mb-1"></i>
+          <span class="text-xs">Início</span>
+        </a>
+        <a href="03-categoria.html" class="nav-item">
+          <i class="fa-solid fa-utensils text-lg mb-1"></i>
+          <span class="text-xs">Pratos</span>
+        </a>
+        <a href="05-marcas.html" class="nav-item active">
+          <i class="fa-solid fa-award text-lg mb-1"></i>
+          <span class="text-xs font-medium">Marcas</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Nav hint -->
+  <div class="fixed bottom-4 left-0 right-0 flex justify-center z-40">
+    <a href="index.html" class="bg-gray-900 border border-gray-700 text-gray-400 text-xs px-4 py-2 rounded-full hover:text-white transition-colors">
+      <i class="fa-solid fa-grid-2 mr-1.5"></i> Ver todas as telas
+    </a>
+  </div>
+
+  <script>
+    function toggleBrand(id) {
+      const card = document.getElementById(id);
+      const isExpanded = card.classList.contains('expanded');
+      // Collapse all
+      document.querySelectorAll('.brand-card').forEach(c => {
+        c.classList.remove('expanded');
+        const iconId = 'icon-' + c.id.replace('brand-', '');
+        const icon = document.getElementById(iconId);
+        if (icon) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
+      });
+      // Expand clicked if was not expanded
+      if (!isExpanded) {
+        card.classList.add('expanded');
+        const iconId = 'icon-' + id.replace('brand-', '');
+        const icon = document.getElementById(iconId);
+        if (icon) { icon.classList.remove('fa-chevron-down'); icon.classList.add('fa-chevron-up'); }
+        // Scroll into view
+        setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+      }
+    }
+
+    function setStyleTab(el) {
+      document.querySelectorAll('.style-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

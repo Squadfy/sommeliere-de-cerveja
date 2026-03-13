@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Índice de Mockups — Sommelière de Cerveja</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --heineken-green-dark: #006633;
+      --heineken-green-mid: #009933;
+      --heineken-amber: #C8960C;
+      --heineken-cream: #F8F4EE;
+      --heineken-text: #1A1A1A;
+      --heineken-red: #CC0000;
+    }
+    body { background: #0a1a0f; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .screen-card:hover { transform: translateY(-4px); }
+    .screen-card { transition: all 0.25s ease; }
+    .badge-status { font-size: 10px; letter-spacing: 0.08em; }
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,153,51,0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(0,153,51,0); }
+    }
+    .pulse { animation: pulse-green 2s infinite; }
+  </style>
+</head>
+<body class="min-h-screen py-12 px-4">
+
+  <!-- Header -->
+  <div class="max-w-5xl mx-auto mb-12 text-center">
+    <div class="inline-block bg-yellow-400 text-yellow-900 text-xs font-bold px-4 py-1.5 rounded-full mb-6 tracking-widest uppercase">
+      Mockup — Sommelière de Cerveja
+    </div>
+    <div class="flex items-center justify-center gap-4 mb-4">
+      <div class="w-12 h-12 rounded-full flex items-center justify-center pulse" style="background:#006633;">
+        <i class="fa-solid fa-beer-mug-empty text-white text-xl"></i>
+      </div>
+      <div>
+        <h1 class="text-3xl font-bold text-white tracking-tight">Sommelière de Cerveja</h1>
+        <p class="text-green-400 text-sm">Portfólio Heineken Brasil · PWA B2C</p>
+      </div>
+    </div>
+    <p class="text-gray-400 text-sm max-w-xl mx-auto leading-relaxed">
+      Protótipo navegável de alta fidelidade. Clique em qualquer tela abaixo para visualizá-la.
+      Todas as telas são mobile-first (430px) e possuem navegação funcional entre si.
+    </p>
+  </div>
+
+  <!-- Screens Grid -->
+  <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+
+    <!-- Screen 01 -->
+    <a href="01-age-gate.html" class="screen-card block bg-gray-900 border border-gray-700 rounded-2xl overflow-hidden no-underline group">
+      <div class="h-40 flex items-center justify-center relative overflow-hidden" style="background: linear-gradient(135deg, #006633 0%, #003d1f 100%);">
+        <div class="text-center z-10">
+          <div class="w-16 h-16 bg-white bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-3 border-2 border-white border-opacity-30">
+            <i class="fa-solid fa-id-card text-white text-2xl"></i>
+          </div>
+          <span class="text-white text-xs font-semibold tracking-widest uppercase opacity-80">Age Gate</span>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-40"></div>
+      </div>
+      <div class="p-5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs text-green-400 font-bold tracking-widest uppercase badge-status">Tela 01</span>
+          <span class="bg-green-900 text-green-300 text-xs px-2 py-0.5 rounded-full">F01</span>
+        </div>
+        <h3 class="text-white font-semibold text-base mb-1">Verificação de Maioridade</h3>
+        <p class="text-gray-400 text-xs leading-relaxed">Gate de idade 18+. Coleta de data de nascimento, bloqueio de menores, persistência em localStorage.</p>
+        <div class="mt-4 flex items-center text-green-400 text-xs font-semibold group-hover:text-green-300">
+          <span>Abrir tela</span>
+          <i class="fa-solid fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"></i>
+        </div>
+      </div>
+    </a>
+
+    <!-- Screen 02 -->
+    <a href="02-home.html" class="screen-card block bg-gray-900 border border-gray-700 rounded-2xl overflow-hidden no-underline group">
+      <div class="h-40 flex items-center justify-center relative overflow-hidden" style="background: linear-gradient(135deg, #C8960C 0%, #7a5c08 100%);">
+        <div class="text-center z-10">
+          <div class="w-16 h-16 bg-white bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-3 border-2 border-white border-opacity-30">
+            <i class="fa-solid fa-house text-white text-2xl"></i>
+          </div>
+          <span class="text-white text-xs font-semibold tracking-widest uppercase opacity-80">Home</span>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-40"></div>
+      </div>
+      <div class="p-5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs text-yellow-400 font-bold tracking-widest uppercase badge-status">Tela 02</span>
+          <span class="bg-yellow-900 text-yellow-300 text-xs px-2 py-0.5 rounded-full">F02 · F03</span>
+        </div>
+        <h3 class="text-white font-semibold text-base mb-1">Home — Busca e Categorias</h3>
+        <p class="text-gray-400 text-xs leading-relaxed">Tela principal com barra de busca por prato e grade de categorias ilustradas. Portfólio em destaque.</p>
+        <div class="mt-4 flex items-center text-yellow-400 text-xs font-semibold group-hover:text-yellow-300">
+          <span>Abrir tela</span>
+          <i class="fa-solid fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"></i>
+        </div>
+      </div>
+    </a>
+
+    <!-- Screen 03 -->
+    <a href="03-categoria.html" class="screen-card block bg-gray-900 border border-gray-700 rounded-2xl overflow-hidden no-underline group">
+      <div class="h-40 flex items-center justify-center relative overflow-hidden" style="background: linear-gradient(135deg, #7c2d12 0%, #431407 100%);">
+        <div class="text-center z-10">
+          <div class="w-16 h-16 bg-white bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-3 border-2 border-white border-opacity-30">
+            <i class="fa-solid fa-utensils text-white text-2xl"></i>
+          </div>
+          <span class="text-white text-xs font-semibold tracking-widest uppercase opacity-80">Categoria</span>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-40"></div>
+      </div>
+      <div class="p-5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs text-orange-400 font-bold tracking-widest uppercase badge-status">Tela 03</span>
+          <span class="bg-orange-900 text-orange-300 text-xs px-2 py-0.5 rounded-full">F02</span>
+        </div>
+        <h3 class="text-white font-semibold text-base mb-1">Lista de Pratos — Carnes</h3>
+        <p class="text-gray-400 text-xs leading-relaxed">Listagem dos pratos de uma categoria selecionada. Cards com foto, nome e badge de harmonização.</p>
+        <div class="mt-4 flex items-center text-orange-400 text-xs font-semibold group-hover:text-orange-300">
+          <span>Abrir tela</span>
+          <i class="fa-solid fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"></i>
+        </div>
+      </div>
+    </a>
+
+    <!-- Screen 04 -->
+    <a href="04-prato.html" class="screen-card block bg-gray-900 border border-gray-700 rounded-2xl overflow-hidden no-underline group">
+      <div class="h-40 flex items-center justify-center relative overflow-hidden" style="background: linear-gradient(135deg, #006633 0%, #C8960C 100%);">
+        <div class="text-center z-10">
+          <div class="w-16 h-16 bg-white bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-3 border-2 border-white border-opacity-30">
+            <i class="fa-solid fa-star text-white text-2xl"></i>
+          </div>
+          <span class="text-white text-xs font-semibold tracking-widest uppercase opacity-80">Recomendação</span>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-40"></div>
+      </div>
+      <div class="p-5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs text-green-400 font-bold tracking-widest uppercase badge-status">Tela 04</span>
+          <span class="bg-green-900 text-green-300 text-xs px-2 py-0.5 rounded-full">F04 · F05 · F06 · F08</span>
+        </div>
+        <h3 class="text-white font-semibold text-base mb-1">Detalhe do Prato + Cervejas</h3>
+        <p class="text-gray-400 text-xs leading-relaxed">Recomendações de cerveja com explicação sensorial, dicas de serviço, "ver mais" e compartilhamento.</p>
+        <div class="mt-4 flex items-center text-green-400 text-xs font-semibold group-hover:text-green-300">
+          <span>Abrir tela</span>
+          <i class="fa-solid fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"></i>
+        </div>
+      </div>
+    </a>
+
+    <!-- Screen 05 -->
+    <a href="05-marcas.html" class="screen-card block bg-gray-900 border border-gray-700 rounded-2xl overflow-hidden no-underline group">
+      <div class="h-40 flex items-center justify-center relative overflow-hidden" style="background: linear-gradient(135deg, #1e3a5f 0%, #0c1f33 100%);">
+        <div class="text-center z-10">
+          <div class="w-16 h-16 bg-white bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-3 border-2 border-white border-opacity-30">
+            <i class="fa-solid fa-award text-white text-2xl"></i>
+          </div>
+          <span class="text-white text-xs font-semibold tracking-widest uppercase opacity-80">Portfólio</span>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-40"></div>
+      </div>
+      <div class="p-5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs text-blue-400 font-bold tracking-widest uppercase badge-status">Tela 05</span>
+          <span class="bg-blue-900 text-blue-300 text-xs px-2 py-0.5 rounded-full">F07</span>
+        </div>
+        <h3 class="text-white font-semibold text-base mb-1">Portfólio de Marcas Heineken</h3>
+        <p class="text-gray-400 text-xs leading-relaxed">Todas as marcas do portfólio com estilo, perfil sensorial e principais harmonizações. Cards expandíveis.</p>
+        <div class="mt-4 flex items-center text-blue-400 text-xs font-semibold group-hover:text-blue-300">
+          <span>Abrir tela</span>
+          <i class="fa-solid fa-arrow-right ml-2 text-xs group-hover:translate-x-1 transition-transform"></i>
+        </div>
+      </div>
+    </a>
+
+    <!-- Flow Overview Card -->
+    <div class="screen-card bg-gray-900 border border-dashed border-gray-600 rounded-2xl overflow-hidden">
+      <div class="h-40 flex items-center justify-center" style="background: #111;">
+        <div class="text-center px-4">
+          <i class="fa-solid fa-diagram-project text-gray-600 text-3xl mb-3"></i>
+          <p class="text-gray-500 text-xs">Fluxo de Navegação</p>
+        </div>
+      </div>
+      <div class="p-5">
+        <h3 class="text-gray-400 font-semibold text-base mb-3">Fluxo Principal</h3>
+        <div class="space-y-2">
+          <div class="flex items-center gap-2 text-xs text-gray-500">
+            <span class="w-5 h-5 rounded-full bg-green-900 text-green-400 flex items-center justify-center text-xs font-bold flex-shrink-0">1</span>
+            <span>Age Gate → confirma 18+</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-gray-500">
+            <span class="w-5 h-5 rounded-full bg-yellow-900 text-yellow-400 flex items-center justify-center text-xs font-bold flex-shrink-0">2</span>
+            <span>Home → busca ou categoria</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-gray-500">
+            <span class="w-5 h-5 rounded-full bg-orange-900 text-orange-400 flex items-center justify-center text-xs font-bold flex-shrink-0">3</span>
+            <span>Lista de pratos da categoria</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-gray-500">
+            <span class="w-5 h-5 rounded-full bg-green-900 text-green-400 flex items-center justify-center text-xs font-bold flex-shrink-0">4</span>
+            <span>Detalhe + recomendação</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-gray-500">
+            <span class="w-5 h-5 rounded-full bg-blue-900 text-blue-400 flex items-center justify-center text-xs font-bold flex-shrink-0">5</span>
+            <span>Portfólio de marcas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Features Coverage -->
+  <div class="max-w-5xl mx-auto mb-12">
+    <h2 class="text-white font-semibold text-lg mb-4 text-center">Cobertura de Features</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div class="bg-gray-900 border border-gray-700 rounded-xl p-3 text-center">
+        <div class="text-green-400 font-bold text-sm mb-1">F01</div>
+        <div class="text-gray-300 text-xs">Age Gate</div>
+        <div class="mt-1 text-green-500 text-xs"><i class="fa-solid fa-check"></i> Tela 01</div>
+      </div>
+      <div class="bg-gray-900 border border-gray-700 rounded-xl p-3 text-center">
+        <div class="text-green-400 font-bold text-sm mb-1">F02</div>
+        <div class="text-gray-300 text-xs">Categorias</div>
+        <div class="mt-1 text-green-500 text-xs"><i class="fa-solid fa-check"></i> Telas 02·03</div>
+      </div>
+      <div class="bg-gray-900 border border-gray-700 rounded-xl p-3 text-center">
+        <div class="text-green-400 font-bold text-sm mb-1">F03</div>
+        <div class="text-gray-300 text-xs">Busca por prato</div>
+        <div class="mt-1 text-green-500 text-xs"><i class="fa-solid fa-check"></i> Tela 02</div>
+      </div>
+      <div class="bg-gray-900 border border-gray-700 rounded-xl p-3 text-center">
+        <div class="text-green-400 font-bold text-sm mb-1">F04</div>
+        <div class="text-gray-300 text-xs">Recomendação</div>
+        <div class="mt-1 text-green-500 text-xs"><i class="fa-solid fa-check"></i> Tela 04</div>
+      </div>
+      <div class="bg-gray-900 border border-gray-700 rounded-xl p-3 text-center">
+        <div class="text-green-400 font-bold text-sm mb-1">F05</div>
+        <div class="text-gray-300 text-xs">Dicas de Serviço</div>
+        <div class="mt-1 text-green-500 text-xs"><i class="fa-solid fa-check"></i> Tela 04</div>
+      </div>
+      <div class="bg-gray-900 border border-gray-700 rounded-xl p-3 text-center">
+        <div class="text-green-400 font-bold text-sm mb-1">F06</div>
+        <div class="text-gray-300 text-xs">Ver Mais Combinações</div>
+        <div class="mt-1 text-green-500 text-xs"><i class="fa-solid fa-check"></i> Tela 04</div>
+      </div>
+      <div class="bg-gray-900 border border-gray-700 rounded-xl p-3 text-center">
+        <div class="text-green-400 font-bold text-sm mb-1">F07</div>
+        <div class="text-gray-300 text-xs">Portfólio Marcas</div>
+        <div class="mt-1 text-green-500 text-xs"><i class="fa-solid fa-check"></i> Tela 05</div>
+      </div>
+      <div class="bg-gray-900 border border-gray-700 rounded-xl p-3 text-center">
+        <div class="text-green-400 font-bold text-sm mb-1">F08</div>
+        <div class="text-gray-300 text-xs">WhatsApp Share</div>
+        <div class="mt-1 text-green-500 text-xs"><i class="fa-solid fa-check"></i> Tela 04</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="max-w-5xl mx-auto text-center">
+    <p class="text-gray-600 text-xs">Mockup gerado em Março/2026 · Sommelière de Cerveja · Grupo Heineken Brasil</p>
+    <p class="text-gray-700 text-xs mt-1">Protótipo para validação de UX/UI — não representa produto final</p>
+  </div>
+
+</body>
+</html>

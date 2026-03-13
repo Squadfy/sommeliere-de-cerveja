@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Categoria — Sommelière de Cerveja</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      background: #0a1a0f;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    .app-screen {
+      width: 430px;
+      min-height: 932px;
+      background: #F8F4EE;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .header-bg {
+      background: linear-gradient(160deg, #4a1505 0%, #7c2d12 50%, #92400e 100%);
+    }
+    .dish-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1.5px solid transparent;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: stretch;
+    }
+    .dish-card:hover {
+      border-color: #006633;
+      box-shadow: 0 6px 20px rgba(0,102,51,0.12);
+      transform: translateY(-2px);
+    }
+    .dish-emoji-area {
+      width: 90px;
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+    .filter-pill {
+      padding: 7px 16px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: 1.5px solid transparent;
+      white-space: nowrap;
+    }
+    .filter-pill.active {
+      background: #006633;
+      color: white;
+    }
+    .filter-pill:not(.active) {
+      background: white;
+      color: #4b5563;
+      border-color: #e5e7eb;
+    }
+    .filter-pill:not(.active):hover {
+      border-color: #006633;
+      color: #006633;
+    }
+    .beer-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .category-tab {
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.15s;
+      white-space: nowrap;
+      color: rgba(255,255,255,0.65);
+    }
+    .category-tab.active {
+      background: rgba(255,255,255,0.15);
+      color: white;
+    }
+    .category-tab:hover:not(.active) { color: rgba(255,255,255,0.9); }
+    .bottom-nav {
+      background: white;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+    }
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+      cursor: pointer;
+      transition: color 0.15s;
+      text-decoration: none;
+    }
+    .nav-item.active { color: #006633; }
+    .nav-item:not(.active) { color: #9ca3af; }
+  </style>
+</head>
+<body>
+
+  <!-- Mockup Banner -->
+  <div class="w-full bg-yellow-400 text-yellow-900 text-center text-xs font-bold py-1.5 tracking-widest uppercase fixed top-0 left-0 right-0 z-50">
+    MOCKUP — SOMMELIÈRE DE CERVEJA · F02 Categoria
+  </div>
+
+  <div class="flex justify-center pt-8 pb-8">
+    <div class="app-screen">
+
+      <!-- Header -->
+      <div class="header-bg px-5 pt-8 pb-6">
+        <!-- Back + Title -->
+        <div class="flex items-center gap-3 mb-5">
+          <a href="02-home.html" class="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0" style="background: rgba(255,255,255,0.12);">
+            <i class="fa-solid fa-arrow-left text-white text-sm"></i>
+          </a>
+          <div class="flex-1">
+            <p class="text-orange-300 text-xs tracking-widest uppercase font-medium mb-0.5">Categoria</p>
+            <h1 class="text-white text-xl font-semibold">Carnes</h1>
+          </div>
+          <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl" style="background: rgba(255,255,255,0.1);">
+            🥩
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-utensils text-orange-300 text-xs"></i>
+            <span class="text-orange-200 text-sm">4 pratos</span>
+          </div>
+          <div class="w-1 h-1 rounded-full bg-orange-400 opacity-40"></div>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-beer-mug-empty text-orange-300 text-xs"></i>
+            <span class="text-orange-200 text-sm">8 harmonizações</span>
+          </div>
+        </div>
+
+        <!-- Category horizontal tabs -->
+        <div class="flex gap-1 mt-4 overflow-x-auto pb-1" style="scrollbar-width: none; -ms-overflow-style: none;">
+          <div class="category-tab active" onclick="filterDishes('all')">Todos</div>
+          <div class="category-tab" onclick="filterDishes('grelhados')">Grelhados</div>
+          <div class="category-tab" onclick="filterDishes('assados')">Assados</div>
+          <div class="category-tab" onclick="filterDishes('braseiro')">Braseiro</div>
+        </div>
+      </div>
+
+      <!-- Filter pills -->
+      <div class="px-4 py-4 bg-white border-b border-gray-100">
+        <div class="flex gap-2 overflow-x-auto pb-1" style="scrollbar-width: none;">
+          <div class="filter-pill active" onclick="setFilter(this, 'all')">Todos</div>
+          <div class="filter-pill" onclick="setFilter(this, 'destaque')">⭐ Destaque</div>
+          <div class="filter-pill" onclick="setFilter(this, 'rapido')">Até 2 carv.</div>
+          <div class="filter-pill" onclick="setFilter(this, 'premium')">Premium</div>
+        </div>
+      </div>
+
+      <!-- Dishes List -->
+      <div class="flex-1 overflow-y-auto px-4 py-4" id="dishList">
+        <div class="space-y-3">
+
+          <!-- Dish 1 — Picanha na Brasa (Featured) -->
+          <a href="04-prato.html" class="dish-card relative">
+            <div class="dish-emoji-area" style="background: linear-gradient(135deg, #fee2e2, #fecaca);">
+              🥩
+            </div>
+            <div class="flex-1 px-4 py-4">
+              <div class="flex items-start justify-between mb-1.5">
+                <div>
+                  <div class="flex items-center gap-2 mb-1">
+                    <span class="bg-yellow-100 text-yellow-700 text-xs px-2 py-0.5 rounded-full font-medium flex items-center gap-1">
+                      <i class="fa-solid fa-star text-yellow-500 text-xs"></i> Destaque
+                    </span>
+                  </div>
+                  <h3 class="text-gray-800 font-semibold text-base leading-tight">Picanha na Brasa</h3>
+                </div>
+                <i class="fa-solid fa-chevron-right text-gray-300 text-sm mt-1 flex-shrink-0 ml-2"></i>
+              </div>
+              <p class="text-gray-500 text-xs mb-2.5">Corte nobre grelhado na chama com sal grosso e temperos da brasa.</p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="beer-tag" style="background:#dcfce7; color:#15803d;">
+                  <i class="fa-solid fa-circle text-xs" style="color:#15803d; font-size:6px;"></i> Amstel
+                </span>
+                <span class="beer-tag" style="background:#dcfce7; color:#15803d;">
+                  <i class="fa-solid fa-circle text-xs" style="color:#15803d; font-size:6px;"></i> Eisenbahn IPA
+                </span>
+                <span class="beer-tag" style="background:#dcfce7; color:#15803d;">
+                  <i class="fa-solid fa-circle text-xs" style="color:#15803d; font-size:6px;"></i> Sol
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Dish 2 -->
+          <a href="04-prato.html" class="dish-card">
+            <div class="dish-emoji-area" style="background: linear-gradient(135deg, #fde8d8, #fed7aa);">
+              🍖
+            </div>
+            <div class="flex-1 px-4 py-4">
+              <div class="flex items-start justify-between mb-1.5">
+                <h3 class="text-gray-800 font-semibold text-base leading-tight">Costela BBQ</h3>
+                <i class="fa-solid fa-chevron-right text-gray-300 text-sm mt-1 flex-shrink-0 ml-2"></i>
+              </div>
+              <p class="text-gray-500 text-xs mb-2.5">Costela suína defumada com molho barbecue artesanal.</p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="beer-tag" style="background:#dcfce7; color:#15803d;">
+                  <i class="fa-solid fa-circle text-xs" style="color:#15803d; font-size:6px;"></i> Devassa
+                </span>
+                <span class="beer-tag" style="background:#dcfce7; color:#15803d;">
+                  <i class="fa-solid fa-circle text-xs" style="color:#15803d; font-size:6px;"></i> Amstel
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Dish 3 -->
+          <a href="04-prato.html" class="dish-card">
+            <div class="dish-emoji-area" style="background: linear-gradient(135deg, #fef3c7, #fde68a);">
+              🍔
+            </div>
+            <div class="flex-1 px-4 py-4">
+              <div class="flex items-start justify-between mb-1.5">
+                <h3 class="text-gray-800 font-semibold text-base leading-tight">Hambúrguer Artesanal</h3>
+                <i class="fa-solid fa-chevron-right text-gray-300 text-sm mt-1 flex-shrink-0 ml-2"></i>
+              </div>
+              <p class="text-gray-500 text-xs mb-2.5">Blend de carnes nobre, queijo fundido, brioche tostado e molho especial.</p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="beer-tag" style="background:#dcfce7; color:#15803d;">
+                  <i class="fa-solid fa-circle text-xs" style="color:#15803d; font-size:6px;"></i> Eisenbahn IPA
+                </span>
+                <span class="beer-tag" style="background:#dcfce7; color:#15803d;">
+                  <i class="fa-solid fa-circle text-xs" style="color:#15803d; font-size:6px;"></i> Amstel
+                </span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Dish 4 -->
+          <a href="04-prato.html" class="dish-card">
+            <div class="dish-emoji-area" style="background: linear-gradient(135deg, #dbeafe, #bfdbfe);">
+              🥩
+            </div>
+            <div class="flex-1 px-4 py-4">
+              <div class="flex items-start justify-between mb-1.5">
+                <h3 class="text-gray-800 font-semibold text-base leading-tight">Filé Mignon ao Molho</h3>
+                <i class="fa-solid fa-chevron-right text-gray-300 text-sm mt-1 flex-shrink-0 ml-2"></i>
+              </div>
+              <p class="text-gray-500 text-xs mb-2.5">Medalhão de filé ao molho madeira com legumes salteados.</p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="beer-tag" style="background:#dcfce7; color:#15803d;">
+                  <i class="fa-solid fa-circle text-xs" style="color:#15803d; font-size:6px;"></i> Baden Baden
+                </span>
+                <span class="beer-tag" style="background:#dcfce7; color:#15803d;">
+                  <i class="fa-solid fa-circle text-xs" style="color:#15803d; font-size:6px;"></i> Amstel
+                </span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- More categories suggestion -->
+        <div class="mt-6 mb-2">
+          <p class="text-gray-400 text-xs text-center mb-3">Explorar outras categorias</p>
+          <div class="flex gap-2 overflow-x-auto pb-1" style="scrollbar-width: none;">
+            <a href="03-categoria.html?cat=massas" class="flex items-center gap-2 bg-white rounded-xl px-3 py-2.5 border border-gray-200 no-underline flex-shrink-0 hover:border-green-300 transition-colors">
+              <span class="text-base">🍝</span>
+              <span class="text-gray-700 text-xs font-medium">Massas</span>
+            </a>
+            <a href="03-categoria.html?cat=frutos-do-mar" class="flex items-center gap-2 bg-white rounded-xl px-3 py-2.5 border border-gray-200 no-underline flex-shrink-0 hover:border-green-300 transition-colors">
+              <span class="text-base">🦐</span>
+              <span class="text-gray-700 text-xs font-medium">Frutos do Mar</span>
+            </a>
+            <a href="03-categoria.html?cat=aves" class="flex items-center gap-2 bg-white rounded-xl px-3 py-2.5 border border-gray-200 no-underline flex-shrink-0 hover:border-green-300 transition-colors">
+              <span class="text-base">🍗</span>
+              <span class="text-gray-700 text-xs font-medium">Aves</span>
+            </a>
+            <a href="03-categoria.html?cat=petiscos" class="flex items-center gap-2 bg-white rounded-xl px-3 py-2.5 border border-gray-200 no-underline flex-shrink-0 hover:border-green-300 transition-colors">
+              <span class="text-base">🍟</span>
+              <span class="text-gray-700 text-xs font-medium">Petiscos</span>
+            </a>
+          </div>
+        </div>
+
+      </div><!-- end dishList -->
+
+      <!-- Footer disclaimer -->
+      <div class="px-4 py-4 text-center border-t border-gray-200 bg-white">
+        <p class="text-gray-400 text-xs font-medium tracking-wide">
+          <i class="fa-solid fa-circle-info mr-1.5" style="color: #C8960C;"></i>
+          Beba com Moderação. Venda Proibida para Menores de 18 Anos.
+        </p>
+      </div>
+
+      <!-- Bottom Nav -->
+      <div class="bottom-nav px-2">
+        <a href="02-home.html" class="nav-item">
+          <i class="fa-solid fa-house text-lg mb-1"></i>
+          <span class="text-xs">Início</span>
+        </a>
+        <a href="03-categoria.html" class="nav-item active">
+          <i class="fa-solid fa-utensils text-lg mb-1"></i>
+          <span class="text-xs font-medium">Pratos</span>
+        </a>
+        <a href="05-marcas.html" class="nav-item">
+          <i class="fa-solid fa-award text-lg mb-1"></i>
+          <span class="text-xs">Marcas</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Nav hint -->
+  <div class="fixed bottom-4 left-0 right-0 flex justify-center z-40">
+    <a href="index.html" class="bg-gray-900 border border-gray-700 text-gray-400 text-xs px-4 py-2 rounded-full hover:text-white transition-colors">
+      <i class="fa-solid fa-grid-2 mr-1.5"></i> Ver todas as telas
+    </a>
+  </div>
+
+  <script>
+    function setFilter(el, filter) {
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function filterDishes(type) {
+      document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
